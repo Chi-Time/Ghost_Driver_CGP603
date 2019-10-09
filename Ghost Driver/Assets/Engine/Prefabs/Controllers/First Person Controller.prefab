@@ -27,10 +27,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1535077146207610699}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.28900003, z: 0.482}
+  m_LocalPosition: {x: 0, y: -0.5419998, z: 0.482}
   m_LocalScale: {x: 0.19153, y: 0.28277, z: 0.45611}
   m_Children: []
-  m_Father: {fileID: 1535077147973980917}
+  m_Father: {fileID: 1535077146637078939}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1535077146207610695
@@ -102,7 +102,6 @@ GameObject:
   - component: {fileID: 1535077146637078939}
   - component: {fileID: 1535077146637078940}
   - component: {fileID: 1535077146637078941}
-  - component: {fileID: 1535077146637078938}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -120,9 +119,10 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.83099985, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1535077146207610698}
   m_Father: {fileID: 1535077147973980917}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &1535077146637078940
 Camera:
@@ -175,28 +175,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1535077146637078942}
   m_Enabled: 1
---- !u!114 &1535077146637078938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1535077146637078942}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b97d083772a467148bba622c387d26b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  axes: 0
-  sensitivityX: 2
-  sensitivityY: 2
-  minimumX: -360
-  maximumX: 360
-  minimumY: -60
-  maximumY: 60
-  rotAverageX: 0
-  rotAverageY: 0
-  frameCounter: 10
 --- !u!1 &1535077147973980923
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,7 +208,6 @@ Transform:
   m_LocalPosition: {x: -1.184968, y: 1.25, z: -1.7307692}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1535077146207610698}
   - {fileID: 1535077146637078939}
   m_Father: {fileID: 0}
   m_RootOrder: 0
