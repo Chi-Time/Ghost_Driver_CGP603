@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Development/SC_Main_Menu.unity
+    guid: 2e7190c4ef2c2364bb59ca4e7964ff8c
+  - enabled: 1
     path: Assets/Scenes/Prototype/FPS Demo.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Prototype/Puzzle Demo.unity
+    guid: 1349e04ffea4953468807c80332cd5f6
+  - enabled: 1
+    path: Assets/Scenes/Prototype/Dialogue Demo.unity
+    guid: 552c09196dc71e64292490df0da66cb6
   m_configObjects: {}

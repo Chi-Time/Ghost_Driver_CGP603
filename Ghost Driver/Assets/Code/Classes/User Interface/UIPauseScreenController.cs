@@ -5,6 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class UIPauseScreenController : MonoBehaviour
 {
+    public void Continue ()
+    {
+        print ("Doing");
+        ExplorationController.Instance.PauseGame ();
+        this.gameObject.SetActive (false);
+    }
+
     public void ShowScreen (GameObject screen)
     {
         this.gameObject.SetActive (false);
