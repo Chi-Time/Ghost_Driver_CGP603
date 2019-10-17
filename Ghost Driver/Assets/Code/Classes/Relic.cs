@@ -8,6 +8,8 @@ using UnityEngine;
 [RequireComponent (typeof (Outline), typeof (Collider))]
 public class Relic : MonoBehaviour
 {
+    [SerializeField] private UIRelicScreenController _RelicScreen = null;
+
     /// <summary>Reference to the outline compnent added to the object.</summary>
     private Outline _Outline = null;
 
@@ -33,6 +35,7 @@ public class Relic : MonoBehaviour
         if (Input.GetKey (KeyCode.E) | Input.GetMouseButtonDown (0))
         {
             Destroy (this.gameObject);
+            _RelicScreen.gameObject.SetActive (true);
         }
     }
 
