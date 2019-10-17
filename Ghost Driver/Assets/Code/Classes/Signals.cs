@@ -11,4 +11,7 @@ class Signals
 
     public static event Action OnTransitionFinished;
     public static void FinishTransition () { OnTransitionFinished?.Invoke (); }
+
+    public static event Action OnPuzzleComplete;
+    public static void CompletePuzzle () { OnPuzzleComplete?.Invoke (); }
 }

@@ -54,6 +54,21 @@ public class FirstPersonController : MonoBehaviour
     private bool _Jumping;
     private AudioSource _AudioSource;
 
+    private void OnEnable ()
+    {
+        Signals.OnLevelTransition += OnLevelTransition;
+    }
+
+    private void OnLevelTransition ()
+    {
+        this.enabled = false;
+    }
+
+    private void OnDisable ()
+    {
+        Signals.OnLevelTransition += OnLevelTransition;
+    }
+
     private void Start ()
     {
         _CharacterController = GetComponent<CharacterController> ();

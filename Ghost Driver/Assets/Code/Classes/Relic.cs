@@ -14,6 +14,7 @@ public class Relic : MonoBehaviour
     private void Awake ()
     {
         _Outline = GetComponent<Outline> ();
+        _Outline.enabled = false;
         GetComponent<Collider> ().isTrigger = true;
     }
 
