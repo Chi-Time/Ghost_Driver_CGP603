@@ -13,6 +13,7 @@ class Alias : MonoBehaviour
     [Tooltip ("How long the object should take to fade in.")]
     [SerializeField] private float _FadeLength = 2.0f;
     [SerializeField] private UIDialogueScreenController _DialogueScreen = null;
+    [SerializeField] private DialogueManager _DialogueManager = new DialogueManager ();
 
     /// <summary>Reference to the outline compnent added to the object.</summary>
     private Outline _Outline = null;
@@ -22,6 +23,7 @@ class Alias : MonoBehaviour
     {
         _Outline = GetComponent<Outline> ();
         _FadeIn = GetComponent<FadeIn> ();
+        _DialogueManager.Constructor (_DialogueScreen);
         //GetComponent<Collider> ().isTrigger = true;
     }
 
@@ -58,13 +60,7 @@ class Alias : MonoBehaviour
         if (Input.GetKeyDown (KeyCode.E) | Input.GetMouseButtonDown (0))
         {
             if (IsFadeFinished == true)
-                BeginDialogue ();
+                _DialogueManager.BeginDialogue ();
         }
-    }
-
-    private void BeginDialogue ()
-    {
-        //TODO: Implement relic collection logic here.
-        _DialogueScreen.gameObject.SetActive (true);
     }
 }
