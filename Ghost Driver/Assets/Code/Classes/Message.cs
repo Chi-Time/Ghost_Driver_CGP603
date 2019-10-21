@@ -26,9 +26,6 @@ class DialogueManager
 
         if (_CurrentScene == null)
             Debug.LogError ("Dialogue scene could not be parsed!!!");
-
-        Debug.Log (_CurrentScene);
-        Debug.Log (_CurrentScene.Messages);
     }
 
     public void BeginDialogue ()
@@ -56,6 +53,11 @@ class DialogueManager
         var message = _CurrentScene.Messages[_Index];
 
         return message;
+    }
+
+    public void EndDialogue ()
+    {
+        _Index = -1;
     }
 }
 

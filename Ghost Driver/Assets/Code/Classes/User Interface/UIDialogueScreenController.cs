@@ -118,6 +118,7 @@ class UIDialogueScreenController : MonoBehaviour
         Cursor.visible = false;
         _Player.enabled = true;
 
+        _CurrentDialogueManager.EndDialogue ();
         _CurrentDialogueManager = null;
     }
 }
