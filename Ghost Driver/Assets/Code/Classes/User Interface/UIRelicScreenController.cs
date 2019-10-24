@@ -10,18 +10,37 @@ class UIRelicScreenController : MonoBehaviour
 {
     private Text _RelicText = null;
 
+    private FirstPersonController _FPSController = null;
+
+    private void Start ()
+    {
+        _FPSController = FindObjectOfType<FirstPersonController> ().GetComponent<FirstPersonController> ();
+    }
+
     private void OnEnable ()
     {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-        GameObject.FindGameObjectWithTag ("Player").GetComponent<FirstPersonController> ().enabled = false;
+        DisplayRelicMenu (true);
+    }
+
+    private void DisplayRelicMenu (bool shouldShow)
+    {
+        if (shouldShow)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            _FPSController.enabled = false;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            _FPSController.enabled = true;
+            this.gameObject.SetActive (false);
+        }
     }
 
     public void Close ()
     {
-        this.gameObject.SetActive (false);
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        GameObject.FindGameObjectWithTag ("Player").GetComponent<FirstPersonController> ().enabled = true;
+        DisplayRelicMenu (false);   
     }
 }

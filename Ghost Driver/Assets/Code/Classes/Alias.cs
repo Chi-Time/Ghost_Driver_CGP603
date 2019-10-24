@@ -5,26 +5,24 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-[RequireComponent (typeof (Outline), typeof (Collider))]
+//TODO: Consider creating states and just improving the Alias in general as it's fade system currently sucks.
+[RequireComponent (typeof (Outline), typeof (FadeIn), typeof (Collider))]
 class Alias : MonoBehaviour
 {
-    public bool IsFadeFinished { get; set; }
-
-    [Tooltip ("How long the object should take to fade in.")]
-    [SerializeField] private float _FadeLength = 2.0f;
     [SerializeField] private UIDialogueScreenController _DialogueScreen = null;
     [SerializeField] private DialogueManager _DialogueManager = new DialogueManager ();
 
+    /// <summary> Reference to the fade in component.</summary>
+    private FadeIn _FadeIn = null;
     /// <summary>Reference to the outline compnent added to the object.</summary>
     private Outline _Outline = null;
-    private FadeIn _FadeIn = null;
+    private bool _IsHidden = false;
 
     private void Awake ()
     {
-        _Outline = GetComponent<Outline> ();
         _FadeIn = GetComponent<FadeIn> ();
+        _Outline = GetComponent<Outline> ();
         _DialogueManager.Constructor (_DialogueScreen);
-        //GetComponent<Collider> ().isTrigger = true;
     }
 
     private void OnTriggerEnter (Collider other)
@@ -32,7 +30,7 @@ class Alias : MonoBehaviour
         if (other.CompareTag ("Player"))
         {
             _FadeIn.Enable (true);
-            IsFadeFinished = true;
+            _IsHidden = false;
         }
     }
 
@@ -41,25 +39,37 @@ class Alias : MonoBehaviour
         if (other.CompareTag ("Player"))
         {
             _FadeIn.Enable (false);
-            IsFadeFinished = false;
+            _IsHidden = true;
         }
     }
 
     private void OnMouseEnter ()
     {
-        //_Outline.enabled = true;
+        if (_IsHidden == false && _Outline.enabled == false)
+        {
+            _Outline.enabled = true;
+        }
     }
 
     private void OnMouseExit ()
     {
-        //_Outline.enabled = false;
+        if (_IsHidden == false && _Outline.enabled == true)
+        {
+            _Outline.enabled = false;
+        }
     }
 
     private void OnMouseOver ()
     {
+        // Check if the alias has hidden themselves, if so, we should override and hide the highlight.
+        if (_IsHidden == true && _Outline.enabled == true)
+        {
+            _Outline.enabled = false;
+        }
+
         if (Input.GetKeyDown (KeyCode.E) | Input.GetMouseButtonDown (0))
         {
-            if (IsFadeFinished == true)
+            if (_IsHidden == true)
                 _DialogueManager.BeginDialogue ();
         }
     }

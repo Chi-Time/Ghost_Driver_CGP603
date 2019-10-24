@@ -15,39 +15,56 @@ class UIDialogueScreenController : MonoBehaviour
     [Tooltip ("How long the delay between each character print is.")]
     [SerializeField] public float _DelayTime = 0.025f;
 
-    private DialogueManager _CurrentDialogueManager = null;
+    private bool _IsSetup = false;
     private Message _CurrentMessage = null;
-    private bool _CurrentPrinting = false;
     private FirstPersonController _Player = null;
+    private DialogueManager _CurrentDialogueManager = null;
+
+    private void OnDisable ()
+    {
+        print ("Disabled!");
+
+        if (_IsSetup == false)
+        {
+            _IsSetup = true;
+            this.gameObject.SetActive (true);
+            this.gameObject.SetActive (false);
+        }
+    }
 
     private void Awake ()
     {
-        _Player = GameObject.FindGameObjectWithTag ("Player").GetComponent<FirstPersonController> ();
+        _Player = FindObjectOfType<FirstPersonController> ().GetComponent<FirstPersonController> ();
     }
 
     private void OnEnable ()
     {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-        _Player.enabled = false;
+        Setup ();
         NextLine ();
     }
 
-    private IEnumerator DisplayMessage (Message message)
+    private void Setup ()
     {
-        _RelicLabel.text = "";
-        _CurrentMessage = message;
-        _NameLabel.text = message.Name;
-
-        foreach (char character in message.Text)
-        {
-            _RelicLabel.text += character;
-
-            yield return new WaitForSeconds (_DelayTime);
-        }
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        _Player.enabled = false;
     }
 
-    public void BeginDialogue (DialogueManager manager)
+    //private IEnumerator DisplayMessage (Message message)
+    //{
+    //    _RelicLabel.text = "";
+    //    _CurrentMessage = message;
+    //    _NameLabel.text = message.Name;
+
+    //    foreach (char character in message.Text)
+    //    {
+    //        _RelicLabel.text += character;
+
+    //        yield return new WaitForSeconds (_DelayTime);
+    //    }
+    //}
+
+    public void Begin (DialogueManager manager)
     {
         _CurrentDialogueManager = manager;
 
@@ -56,68 +73,79 @@ class UIDialogueScreenController : MonoBehaviour
 
     public void NextLine ()
     {
-        StopAllCoroutines ();
+        _CurrentDialogueManager.DisplayNextLine (_RelicLabel, _NameLabel, this);
+        //StopAllCoroutines ();
 
-        //TODO: Clean this up as it's messy as hell. We shouldn't be doing the same thing in two different if statements.
-        if (_CurrentMessage == null)
-        {
-            var nextMessage = _CurrentDialogueManager.GetNextLine ();
+        ////TODO: Clean this up as it's messy as hell. We shouldn't be doing the same thing in two different if statements.
+        //if (_CurrentMessage == null)
+        //{
+        //    var nextMessage = _CurrentDialogueManager.GetNextLine ();
 
-            if (nextMessage == null)
-            {
-                _RelicLabel.text = _CurrentMessage.Text;
-                return;
-            }
+        //    if (nextMessage == null)
+        //    {
+        //        _RelicLabel.text = _CurrentMessage.Text;
+        //        return;
+        //    }
 
-            StartCoroutine (DisplayMessage (nextMessage));
-            return;
-        }
+        //    StartCoroutine (DisplayMessage (nextMessage));
+        //    return;
+        //}
 
-        if (_RelicLabel.text == _CurrentMessage.Text)
-        {
-            var nextMessage = _CurrentDialogueManager.GetNextLine ();
+        //if (_RelicLabel.text == _CurrentMessage.Text)
+        //{
+        //    var nextMessage = _CurrentDialogueManager.GetNextLine ();
 
-            if (nextMessage == null)
-            {
-                _RelicLabel.text = _CurrentMessage.Text;
-                return;
-            }
+        //    if (nextMessage == null)
+        //    {
+        //        _RelicLabel.text = _CurrentMessage.Text;
+        //        return;
+        //    }
 
-            StartCoroutine (DisplayMessage (nextMessage));
-            return;
-        }
+        //    StartCoroutine (DisplayMessage (nextMessage));
+        //    return;
+        //}
 
-        _RelicLabel.text = _CurrentMessage.Text;
+        //_RelicLabel.text = _CurrentMessage.Text;
     }
 
     public void LastLine ()
     {
-        StopAllCoroutines ();
+        _CurrentDialogueManager.DisplayLastLine (_RelicLabel, _NameLabel, this);
+        //StopAllCoroutines ();
 
-        if (_RelicLabel.text == _CurrentMessage.Text)
-        {
-            var lastMessage = _CurrentDialogueManager.GetLastLine ();
+        //if (_RelicLabel.text == _CurrentMessage.Text)
+        //{
+        //    var lastMessage = _CurrentDialogueManager.GetLastLine ();
 
-            if (lastMessage == null)
-            {
-                _RelicLabel.text = _CurrentMessage.Text;
-                return;
-            }
+        //    if (lastMessage == null)
+        //    {
+        //        _RelicLabel.text = _CurrentMessage.Text;
+        //        return;
+        //    }
 
-            StartCoroutine (DisplayMessage (lastMessage));
-            return;
-        }
+        //    StartCoroutine (DisplayMessage (lastMessage));
+        //    return;
+        //}
 
-        _RelicLabel.text = _CurrentMessage.Text;
+        //_RelicLabel.text = _CurrentMessage.Text;
     }
 
     public void Close ()
+    {
+        Disable ();
+        EndDialogue ();
+    }
+
+    private void Disable ()
     {
         this.gameObject.SetActive (false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         _Player.enabled = true;
+    }
 
+    private void EndDialogue ()
+    {
         _CurrentDialogueManager.EndDialogue ();
         _CurrentDialogueManager = null;
     }
