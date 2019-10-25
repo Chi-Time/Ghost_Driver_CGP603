@@ -8,29 +8,38 @@ using UnityEngine;
 [RequireComponent (typeof (Collider))]
 public class Teleporter : MonoBehaviour
 {
-    public Transform Transform { get { return _Transform; } }
     public int ID { get { return _ID; } }
+    public Transform Transform { get { return _Transform; } }
     public bool CanTeleport { get { return _CanTeleport; } set { _CanTeleport = value; } }
 
-    [Tooltip ("The ")]
+    [Tooltip ("The ID of this teleporter and it's partner.")]
     [SerializeField] private int _ID = 0;
 
     private bool _CanTeleport = true;
+    private float _DelayTimer = 0.05f;
     private Teleporter _Partner = null;
     private Transform _Transform = null;
 
     private void Awake ()
     {
+        Setup ();
+    }
+
+    private void Start ()
+    {
+        FindPartner ();
+    }
+
+    private void Setup ()
+    {
         _Transform = GetComponent<Transform> ();
         GetComponent<Collider> ().isTrigger = true;
-
-        FindPartner ();
     }
 
     /// <summary>Loop through every teleporter in the level to find the partner to this one.</summary>
     private void FindPartner ()
     {
-        var teleporters = GameObject.FindObjectsOfType<Teleporter> ();
+        var teleporters = FindObjectsOfType<Teleporter> ();
 
         // Loop through every teleporter, checking for a match. Ensure that the one found is not itself.
         for (int i = 0; i < teleporters.Length; i++)
@@ -45,10 +54,16 @@ public class Teleporter : MonoBehaviour
     {
         if ((other.CompareTag ("Player") || other.CompareTag ("Enemy")) && _CanTeleport)
         {
-            _Partner.CanTeleport = false;
-            other.transform.position = new Vector3 (_Partner.Transform.position.x, _Partner.Transform.position.y, 0.0f);
-            Invoke ("ActivatePartner", 0.05f);
+            Teleport (other);
         }
+    }
+
+    private void Teleport (Collider other)
+    {
+        float zPos = 0.0f;
+        _Partner.CanTeleport = false;
+        other.transform.position = new Vector3 (_Partner.Transform.position.x, _Partner.Transform.position.y, zPos);
+        Invoke ("ActivatePartner", _DelayTimer);
     }
 
     private void ActivatePartner ()

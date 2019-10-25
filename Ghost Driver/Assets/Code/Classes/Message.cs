@@ -8,7 +8,7 @@ using UnityEngine;
 [System.Serializable]
 public class DialogueScene
 {
-    public List<Message> Messages;
+    public Message[] Messages;
 }
 
 [System.Serializable]

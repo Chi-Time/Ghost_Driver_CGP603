@@ -12,29 +12,13 @@ class UIDialogueScreenController : MonoBehaviour
     [SerializeField] private Text _NameLabel = null;
     [Tooltip ("The label used to display the current speaker's text.")]
     [SerializeField] private Text _RelicLabel = null;
-    [Tooltip ("How long the delay between each character print is.")]
-    [SerializeField] public float _DelayTime = 0.025f;
 
-    private bool _IsSetup = false;
-    private Message _CurrentMessage = null;
-    private FirstPersonController _Player = null;
+    private FirstPersonController _FPSController = null;
     private DialogueManager _CurrentDialogueManager = null;
-
-    private void OnDisable ()
-    {
-        print ("Disabled!");
-
-        if (_IsSetup == false)
-        {
-            _IsSetup = true;
-            this.gameObject.SetActive (true);
-            this.gameObject.SetActive (false);
-        }
-    }
 
     private void Awake ()
     {
-        _Player = FindObjectOfType<FirstPersonController> ().GetComponent<FirstPersonController> ();
+        _FPSController = FindObjectOfType<FirstPersonController> ().GetComponent<FirstPersonController> ();
     }
 
     private void OnEnable ()
@@ -47,25 +31,16 @@ class UIDialogueScreenController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        _Player.enabled = false;
+        _FPSController.enabled = false;
     }
 
-    //private IEnumerator DisplayMessage (Message message)
-    //{
-    //    _RelicLabel.text = "";
-    //    _CurrentMessage = message;
-    //    _NameLabel.text = message.Name;
-
-    //    foreach (char character in message.Text)
-    //    {
-    //        _RelicLabel.text += character;
-
-    //        yield return new WaitForSeconds (_DelayTime);
-    //    }
-    //}
-
+    /// <summary>Begin's a dialogue scene and enables the menu.</summary>
+    /// <param name="manager">The manager of the current dialogue scene.</param>
     public void Begin (DialogueManager manager)
     {
+        if (manager == null)
+            return;
+
         _CurrentDialogueManager = manager;
 
         this.gameObject.SetActive (true);
@@ -74,60 +49,11 @@ class UIDialogueScreenController : MonoBehaviour
     public void NextLine ()
     {
         _CurrentDialogueManager.DisplayNextLine (_RelicLabel, _NameLabel, this);
-        //StopAllCoroutines ();
-
-        ////TODO: Clean this up as it's messy as hell. We shouldn't be doing the same thing in two different if statements.
-        //if (_CurrentMessage == null)
-        //{
-        //    var nextMessage = _CurrentDialogueManager.GetNextLine ();
-
-        //    if (nextMessage == null)
-        //    {
-        //        _RelicLabel.text = _CurrentMessage.Text;
-        //        return;
-        //    }
-
-        //    StartCoroutine (DisplayMessage (nextMessage));
-        //    return;
-        //}
-
-        //if (_RelicLabel.text == _CurrentMessage.Text)
-        //{
-        //    var nextMessage = _CurrentDialogueManager.GetNextLine ();
-
-        //    if (nextMessage == null)
-        //    {
-        //        _RelicLabel.text = _CurrentMessage.Text;
-        //        return;
-        //    }
-
-        //    StartCoroutine (DisplayMessage (nextMessage));
-        //    return;
-        //}
-
-        //_RelicLabel.text = _CurrentMessage.Text;
     }
 
     public void LastLine ()
     {
         _CurrentDialogueManager.DisplayLastLine (_RelicLabel, _NameLabel, this);
-        //StopAllCoroutines ();
-
-        //if (_RelicLabel.text == _CurrentMessage.Text)
-        //{
-        //    var lastMessage = _CurrentDialogueManager.GetLastLine ();
-
-        //    if (lastMessage == null)
-        //    {
-        //        _RelicLabel.text = _CurrentMessage.Text;
-        //        return;
-        //    }
-
-        //    StartCoroutine (DisplayMessage (lastMessage));
-        //    return;
-        //}
-
-        //_RelicLabel.text = _CurrentMessage.Text;
     }
 
     public void Close ()
@@ -141,7 +67,7 @@ class UIDialogueScreenController : MonoBehaviour
         this.gameObject.SetActive (false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        _Player.enabled = true;
+        _FPSController.enabled = true;
     }
 
     private void EndDialogue ()

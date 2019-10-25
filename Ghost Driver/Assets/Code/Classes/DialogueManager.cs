@@ -14,11 +14,11 @@ class DialogueManager
     [Tooltip ("How long the delay between each character print is.")]
     [SerializeField] public float _DelayTime = 0.005f;
 
-    private int _Index = -1;
+    /// <summary>The current index of the dialogue scene.</summary>
+    private int _MessageIndex = -1;
     private Message _CurrentMessage = null;
     private DialogueScene _CurrentScene = null;
     private UIDialogueScreenController _DialogueScreenController = null;
-
 
     /// <summary>Faux constructor to setup the class with it's dependencies.</summary>
     /// <param name="dialogueScreen">The UI screen responsible for dialogue processing.</param>
@@ -95,11 +95,11 @@ class DialogueManager
     /// <summary>Get's the next line of text in the conversation. Returns null if no line is found.</summary>
     public Message GetNextLine ()
     {
-        if (_Index >= _CurrentScene.Messages.Count - 1)
+        if (_MessageIndex >= _CurrentScene.Messages.Length - 1)
             return null;
 
-        _Index++;
-        var message = _CurrentScene.Messages[_Index];
+        _MessageIndex++;
+        var message = _CurrentScene.Messages[_MessageIndex];
 
         return message;
     }
@@ -128,11 +128,11 @@ class DialogueManager
     /// <summary>Get's the last line of text in the conversation. Returns null if no line is found.</summary>
     public Message GetLastLine ()
     {
-        if (_Index <= 0)
+        if (_MessageIndex <= 0)
             return null;
 
-        _Index--;
-        var message = _CurrentScene.Messages[_Index];
+        _MessageIndex--;
+        var message = _CurrentScene.Messages[_MessageIndex];
 
         return message;
     }
@@ -140,6 +140,6 @@ class DialogueManager
     /// <summary>Ends the dialogue and resets the index so that it can be repeated next time.</summary>
     public void EndDialogue ()
     {
-        _Index = -1;
+        _MessageIndex = -1;
     }
 }

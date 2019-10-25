@@ -47,9 +47,6 @@ public class Gate : MonoBehaviour
         if (other.CompareTag ("Player"))
         {
             //other.transform.position = new Vector3 (Mathf.RoundToInt (other.transform.position.x), Mathf.RoundToInt (other.transform.position.y), 0.0f);
-
-            print ("YO");
-
             Signals.CompletePuzzle ();
         }
     }

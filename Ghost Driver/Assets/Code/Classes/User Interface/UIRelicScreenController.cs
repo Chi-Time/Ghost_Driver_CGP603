@@ -6,13 +6,16 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
+//TODO: Check about the whole loading in AWAKE and stuff.
+//TODO: Implement relic text system.
+
 class UIRelicScreenController : MonoBehaviour
 {
     private Text _RelicText = null;
 
     private FirstPersonController _FPSController = null;
 
-    private void Start ()
+    private void Awake ()
     {
         _FPSController = FindObjectOfType<FirstPersonController> ().GetComponent<FirstPersonController> ();
     }

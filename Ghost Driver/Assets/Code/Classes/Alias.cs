@@ -5,18 +5,24 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
+//TODO: Alias currently enables and disables highlight while talking, this should be frozen so you need to find a way to track whether it's currently talking or not.
 //TODO: Consider creating states and just improving the Alias in general as it's fade system currently sucks.
 [RequireComponent (typeof (Outline), typeof (FadeIn), typeof (Collider))]
 class Alias : MonoBehaviour
 {
+    enum AliasStates { Hidden, Shown, Talking }
+
+    [Tooltip ("The current state of the alias.")]
+    [SerializeField] private AliasStates _CurrentState = AliasStates.Hidden;
+    [Tooltip ("Reference to the current dialogue screen in the scene.")]
     [SerializeField] private UIDialogueScreenController _DialogueScreen = null;
+    [Tooltip ("The dialogue manager for this specific alias and it's dialogue scene file.")]
     [SerializeField] private DialogueManager _DialogueManager = new DialogueManager ();
 
     /// <summary> Reference to the fade in component.</summary>
     private FadeIn _FadeIn = null;
     /// <summary>Reference to the outline compnent added to the object.</summary>
     private Outline _Outline = null;
-    private bool _IsHidden = false;
 
     private void Awake ()
     {
@@ -30,7 +36,7 @@ class Alias : MonoBehaviour
         if (other.CompareTag ("Player"))
         {
             _FadeIn.Enable (true);
-            _IsHidden = false;
+            _CurrentState = AliasStates.Shown;
         }
     }
 
@@ -39,13 +45,13 @@ class Alias : MonoBehaviour
         if (other.CompareTag ("Player"))
         {
             _FadeIn.Enable (false);
-            _IsHidden = true;
+            _CurrentState = AliasStates.Hidden;
         }
     }
 
     private void OnMouseEnter ()
     {
-        if (_IsHidden == false && _Outline.enabled == false)
+        if (_CurrentState == AliasStates.Shown && _Outline.enabled == false)
         {
             _Outline.enabled = true;
         }
@@ -53,7 +59,7 @@ class Alias : MonoBehaviour
 
     private void OnMouseExit ()
     {
-        if (_IsHidden == false && _Outline.enabled == true)
+        if (_CurrentState == AliasStates.Shown && _Outline.enabled == true)
         {
             _Outline.enabled = false;
         }
@@ -62,14 +68,14 @@ class Alias : MonoBehaviour
     private void OnMouseOver ()
     {
         // Check if the alias has hidden themselves, if so, we should override and hide the highlight.
-        if (_IsHidden == true && _Outline.enabled == true)
+        if (_CurrentState == AliasStates.Hidden && _Outline.enabled == true)
         {
             _Outline.enabled = false;
         }
 
         if (Input.GetKeyDown (KeyCode.E) | Input.GetMouseButtonDown (0))
         {
-            if (_IsHidden == true)
+            if (_CurrentState == AliasStates.Shown)
                 _DialogueManager.BeginDialogue ();
         }
     }
