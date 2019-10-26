@@ -58,9 +58,6 @@ class Watcher : MonoBehaviour
         {
             _WayPoints[i] = _WaypointHolder.transform.GetChild (i);
         }
-
-        // Assign the reference to null to save memory.
-        _WaypointHolder = null;
     }
 
     private void Update ()

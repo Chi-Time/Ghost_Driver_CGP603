@@ -39,13 +39,12 @@ class Patrol : MonoBehaviour
         {
             _WayPoints[i] = _WaypointHolder.transform.GetChild (i);
         }
-
-        print (_WayPoints.Length - 1);
     }
 
     private void FixedUpdate ()
     {
-        Move ();
+        if (_CurrentState == PatrolState.Patrolling || _CurrentState == PatrolState.Reversing)
+            Move ();
     }
 
     private void Move ()
@@ -93,12 +92,13 @@ class Patrol : MonoBehaviour
 
     private IEnumerator RotateTo ()
     {
-        _CurrentState = PatrolState.Turning;
-
         float timer = 0.0f;
+        PatrolState startState = _CurrentState;
         Vector3 nextWaypoint = GetNextWaypoint ().position;
         Quaternion currentRotation = _Transform.rotation;
         Quaternion nextRotation = Quaternion.LookRotation (Vector3.forward, nextWaypoint - _Transform.position);
+
+        _CurrentState = PatrolState.Turning;
 
         while (timer <= _TurnSpeed)
         {
@@ -111,8 +111,7 @@ class Patrol : MonoBehaviour
         }
 
         _Transform.rotation = nextRotation;
-
-        _CurrentState = PatrolState.Patrolling;
+        _CurrentState = startState;
     }
 
     private void CheckState ()

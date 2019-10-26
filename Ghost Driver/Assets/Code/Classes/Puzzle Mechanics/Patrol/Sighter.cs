@@ -8,21 +8,21 @@ class Sighter : MonoBehaviour
 {
     enum SighterState { Patrolling, Reversing, Turning }
 
-    [Header("Sight")]
-    [Tooltip("How many tiles ahead the agent see.")]
+    [Header ("Sight")]
+    [Tooltip ("How many tiles ahead the agent see.")]
     [SerializeField] private float _SightDistance = 3.0f;
 
-    [Header("Movement")]
-    [Tooltip("The speed at which the agent moves to each waypoint.")]
+    [Header ("Movement")]
+    [Tooltip ("The speed at which the agent moves to each waypoint.")]
     [SerializeField] private float _Speed = 1.0f;
-    [Tooltip("The gameobject containing all of the enemies waypoints.")]
+    [Tooltip ("The gameobject containing all of the enemies waypoints.")]
     [SerializeField] GameObject _WaypointHolder = null;
     [Tooltip ("Should the enemy go back to the start position at the end? " +
         "\nOr should they reverse back through their route?")]
     [SerializeField] private bool _ShouldReverse = false;
 
-    [Header("Rotation")]
-    [Tooltip("How long the Agent takes to turn.")]
+    [Header ("Rotation")]
+    [Tooltip ("How long the Agent takes to turn.")]
     [SerializeField] private float _TurnSpeed = 1.0f;
 
     private int _CurrentIndex = 0;
@@ -31,70 +31,71 @@ class Sighter : MonoBehaviour
     private Transform _Transform = null;
     private SighterState _CurrentState = SighterState.Patrolling;
 
-    private void Awake()
+    private void Awake ()
     {
-        _Line = new LineDrawer();
-        _Transform = GetComponent<Transform>();
+        _Line = new LineDrawer ();
+        _Transform = GetComponent<Transform> ();
     }
 
-    private void Start()
+    private void Start ()
     {
-        GetWaypointsFromHolder();
+        GetWaypointsFromHolder ();
     }
 
-    private void GetWaypointsFromHolder()
+    private void GetWaypointsFromHolder ()
     {
         _WayPoints = new Transform[_WaypointHolder.transform.childCount];
 
         for (int i = 0; i < _WaypointHolder.transform.childCount; i++)
         {
-            _WayPoints[i] = _WaypointHolder.transform.GetChild(i);
+            _WayPoints[i] = _WaypointHolder.transform.GetChild (i);
         }
     }
 
-    private void Update()
+    private void Update ()
     {
-        _Line.DrawLineInGameView(_Transform.position, _Transform.position + _Transform.up * _SightDistance, Color.red);
+        _Line.DrawLineInGameView (_Transform.position, _Transform.position + _Transform.up * _SightDistance, Color.red);
 
-        if (Physics.Linecast(_Transform.position, _Transform.position + _Transform.up * _SightDistance, out RaycastHit hit))
+        if (Physics.Linecast (_Transform.position, _Transform.position + _Transform.up * _SightDistance, out RaycastHit hit))
         {
             if (hit.collider != null)
             {
-                if (hit.collider.CompareTag("Player"))
+                if (hit.collider.CompareTag ("Player"))
                 {
                     //TODO: Implement sight game logic.
-                    print("The Sighter see's you");
+                    print ("The Sighter see's you");
                 }
             }
         }
     }
 
-    private void FixedUpdate()
+    private void FixedUpdate ()
     {
-        Move ();
+        if (_CurrentState == SighterState.Patrolling || _CurrentState == SighterState.Reversing)
+            Move ();
     }
 
-    private void Move()
+    private void Move ()
     {
-        var currentWayPoint = GetNextWaypoint();
+        var currentWayPoint = GetNextWaypoint ();
 
-        if (IsAtNextPoint(currentWayPoint))
+        if (IsAtNextPoint (currentWayPoint))
         {
             CheckState ();
             ChangeIndex ();
-            StartCoroutine(RotateTo());
+            StartCoroutine (RotateTo ());
         }
 
-        MoveToNextPoint(currentWayPoint);
+        MoveToNextPoint (currentWayPoint);
     }
 
-    private void Rotate()
+    private void Rotate ()
     {
-        var currentWayPoint = GetNextWaypoint();
+        var currentWayPoint = GetNextWaypoint ();
         _Transform.up = currentWayPoint.position - _Transform.position;
     }
 
-    private Transform GetNextWaypoint()
+    private Transform GetNextWaypoint ()
     {
         if (_CurrentIndex >= _WayPoints.Length)
             _CurrentIndex = 0;
@@ -102,7 +103,7 @@ class Sighter : MonoBehaviour
         return _WayPoints[_CurrentIndex];
     }
 
-    private bool IsAtNextPoint(Transform waypoint)
+    private bool IsAtNextPoint (Transform waypoint)
     {
         if (_Transform.position == waypoint.position)
         {
@@ -112,18 +113,18 @@ class Sighter : MonoBehaviour
         return false;
     }
 
-    private void MoveToNextPoint(Transform waypoint)
+    private void MoveToNextPoint (Transform waypoint)
     {
-        _Transform.position = Vector3.MoveTowards(_Transform.position, waypoint.position, _Speed * Time.deltaTime);
+        _Transform.position = Vector3.MoveTowards (_Transform.position, waypoint.position, _Speed * Time.deltaTime);
     }
 
-    IEnumerator RotateTo()
+    IEnumerator RotateTo ()
     {
         float timer = 0.0f;
         SighterState startState = _CurrentState;
-        Vector3 nextWaypoint = GetNextWaypoint().position;
+        Vector3 nextWaypoint = GetNextWaypoint ().position;
         Quaternion startRotation = _Transform.rotation;
-        Quaternion nextRotation = Quaternion.LookRotation(Vector3.forward, nextWaypoint - _Transform.position);
+        Quaternion nextRotation = Quaternion.LookRotation (Vector3.forward, nextWaypoint - _Transform.position);
 
         _CurrentState = SighterState.Turning;
 
@@ -131,14 +132,13 @@ class Sighter : MonoBehaviour
         {
             timer += Time.fixedDeltaTime;
 
-            var rotation = Quaternion.Lerp(startRotation, nextRotation, timer / _TurnSpeed);
+            var rotation = Quaternion.Lerp (startRotation, nextRotation, timer / _TurnSpeed);
             _Transform.rotation = rotation;
 
-            yield return new WaitForFixedUpdate();
+            yield return new WaitForFixedUpdate ();
         }
 
         _Transform.rotation = nextRotation;
-
         _CurrentState = startState;
     }
 
