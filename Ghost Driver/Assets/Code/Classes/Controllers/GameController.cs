@@ -12,7 +12,7 @@ class GameController : MonoBehaviour
 
     protected bool _IsPaused = false;
 
-    protected void Update ()
+    protected virtual void Update ()
     {
         if (Input.GetKeyDown (KeyCode.Escape))
         {
