@@ -7,8 +7,6 @@ using UnityEngine;
 
 class Sentinel : MonoBehaviour
 {
-    enum RotationType { Eighths, Quarters, Half }
-
     [Header ("Sight")]
     [Tooltip ("How many tiles ahead the agent see.")]
     [SerializeField] private float _SightDistance = 3.0f;
@@ -39,15 +37,22 @@ class Sentinel : MonoBehaviour
 
     private void Update ()
     {
-        _Line.DrawLineInGameView (_Transform.position, _Transform.position + _Transform.up * _SightDistance, Color.red);
+        // Draw an in-game sight line so that the player can tell the enemie's sight length.
+        _Line.DrawLineInGameView(_Transform.position, _Transform.position + _Transform.up * _SightDistance, Color.red);
 
-        if (Physics.Linecast (_Transform.position, _Transform.position + _Transform.up * _SightDistance, out RaycastHit hit))
+        See();
+    }
+
+    private void See ()
+    {
+        if (Physics.Linecast(_Transform.position, _Transform.position + _Transform.up * _SightDistance, out RaycastHit hit))
         {
             if (hit.collider != null)
             {
-                if (hit.collider.CompareTag ("Player"))
+                if (hit.collider.CompareTag("Player"))
                 {
-                    print ("I see you");
+                    //TODO: Implement sight game logic.
+                    print("The Sentinel see's you.");
                 }
             }
         }
