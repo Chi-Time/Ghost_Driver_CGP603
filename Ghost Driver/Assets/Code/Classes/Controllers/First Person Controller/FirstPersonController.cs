@@ -56,7 +56,7 @@ public class FirstPersonController : MonoBehaviour
 
     private void OnEnable ()
     {
-        Signals.OnLevelTransition += OnLevelTransition;
+        ExplorationSignals.OnLevelTransition += OnLevelTransition;
     }
 
     private void OnLevelTransition ()
@@ -66,7 +66,7 @@ public class FirstPersonController : MonoBehaviour
 
     private void OnDisable ()
     {
-        Signals.OnLevelTransition += OnLevelTransition;
+        ExplorationSignals.OnLevelTransition += OnLevelTransition;
     }
 
     private void Start ()

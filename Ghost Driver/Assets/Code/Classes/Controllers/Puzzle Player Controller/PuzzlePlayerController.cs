@@ -11,6 +11,7 @@ public class PuzzlePlayerController : MonoBehaviour
     private bool _CanMove = true;
     private Vector3 _Direction = Vector3.zero;
     private Vector3 _SpawnPosition = Vector3.zero;
+    private Quaternion _SpawnRotation = Quaternion.identity;
     private Rigidbody _Rigidbody = null;
 
     protected void Awake ()
@@ -25,6 +26,7 @@ public class PuzzlePlayerController : MonoBehaviour
         GetComponent<Collider> ().isTrigger = true;
 
         _SpawnPosition = _Rigidbody.position;
+        _SpawnRotation = _Rigidbody.rotation;
     }
 
     private void SetupRigidbody ()
@@ -50,22 +52,22 @@ public class PuzzlePlayerController : MonoBehaviour
             if (Input.GetKeyDown (KeyCode.W))
             {
                 _Direction = Vector3.up;
-                //_Rigidbody.rotation = Quaternion.Euler (Vector3.zero);
+                _Rigidbody.rotation = Quaternion.Euler (Vector3.zero);
             }
             else if (Input.GetKeyDown (KeyCode.S))
             {
                 _Direction = Vector3.down;
-                //_Rigidbody.rotation = Quaternion.Euler (new Vector3 (0, 0, 180f));
+                _Rigidbody.rotation = Quaternion.Euler (new Vector3 (0, 0, 180f));
             }
             else if (Input.GetKeyDown (KeyCode.D))
             {
                 _Direction = Vector3.right;
-                //_Rigidbody.rotation = Quaternion.Euler (new Vector3 (0, 0, 90f));
+                _Rigidbody.rotation = Quaternion.Euler (new Vector3 (0, 0, 270f));
             }
             else if (Input.GetKeyDown (KeyCode.A))
             {
                 _Direction = Vector3.left;
-                //_Rigidbody.rotation = Quaternion.Euler (new Vector3 (0, 0, 270f));
+                _Rigidbody.rotation = Quaternion.Euler (new Vector3 (0, 0, 90f));
             }
         }
     }
@@ -94,5 +96,23 @@ public class PuzzlePlayerController : MonoBehaviour
                 _Rigidbody.position = new Vector3 (Mathf.RoundToInt (_Rigidbody.position.x), Mathf.RoundToInt (_Rigidbody.position.y), 0.0f);
             }
         }
+    }
+
+    private void OnEnable ()
+    {
+        PuzzleSignals.OnPuzzleReset += OnPuzzleReset;
+    }
+
+    private void OnPuzzleReset ()
+    {
+        _Direction = Vector3.zero;
+        _Rigidbody.velocity = Vector3.zero;
+        _Rigidbody.position = _SpawnPosition;
+        _Rigidbody.rotation = _SpawnRotation;
+    }
+
+    private void OnDisable ()
+    {
+        PuzzleSignals.OnPuzzleReset -= OnPuzzleReset;
     }
 }

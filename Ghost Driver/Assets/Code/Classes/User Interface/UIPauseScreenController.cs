@@ -5,10 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class UIPauseScreenController : MonoBehaviour
 {
-    public void Continue ()
+    public void ContinueExploration ()
     {
-        print ("Doing");
         ExplorationController.Instance.PauseGame ();
+        this.gameObject.SetActive (false);
+    }
+
+    public void ContinuePuzzle ()
+    {
+        PuzzleController.Instance.PauseGame ();
         this.gameObject.SetActive (false);
     }
 
@@ -21,6 +26,11 @@ public class UIPauseScreenController : MonoBehaviour
     public void BackToMenu (string sceneName)
     {
         SceneManager.LoadScene (sceneName);
+    }
+
+    public void Reset ()
+    {
+        PuzzleSignals.ResetPuzzle ();
     }
 
     public void QuitGame ()

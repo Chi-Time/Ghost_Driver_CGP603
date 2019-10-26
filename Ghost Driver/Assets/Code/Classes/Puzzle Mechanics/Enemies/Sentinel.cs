@@ -23,11 +23,14 @@ class Sentinel : MonoBehaviour
 
     private LineDrawer _Line = null;
     private Transform _Transform = null;
+    private Quaternion _SpawnRotation = Quaternion.identity;
 
     private void Awake ()
     {
         _Line = new LineDrawer ();
         _Transform = GetComponent<Transform> ();
+
+        _SpawnRotation = _Transform.rotation;
     }
 
     private void Start ()
@@ -111,5 +114,22 @@ class Sentinel : MonoBehaviour
             return offset;
         else
             return -offset;
+    }
+
+    private void OnEnable ()
+    {
+        PuzzleSignals.OnPuzzleReset += OnPuzzleReset;
+    }
+
+    private void OnPuzzleReset ()
+    {
+        StopAllCoroutines ();
+        _Transform.rotation = _SpawnRotation;
+        StartCoroutine (RotateTo ());
+    }
+
+    private void OnDisable ()
+    {
+        PuzzleSignals.OnPuzzleReset -= OnPuzzleReset;
     }
 }

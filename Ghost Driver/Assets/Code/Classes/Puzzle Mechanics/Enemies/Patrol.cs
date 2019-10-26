@@ -26,13 +26,18 @@ class Patrol : MonoBehaviour
     [SerializeField] private float _TurnSpeed = 0.25f;
 
     private int _CurrentIndex = 0;
-    private Transform[] _WayPoints = null;
     private Transform _Transform = null;
+    private Transform[] _WayPoints = null;
+    private Vector3 _SpawnPosition = Vector3.zero;
+    private Quaternion _SpawnRotation = Quaternion.identity;
     private PatrolState _CurrentState = PatrolState.Patrolling;
 
     private void Awake ()
     {
         _Transform = GetComponent<Transform> ();
+
+        _SpawnPosition = _Transform.position;
+        _SpawnRotation = _Transform.rotation;
     }
 
     private void Start ()
@@ -158,6 +163,24 @@ class Patrol : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void OnEnable ()
+    {
+        PuzzleSignals.OnPuzzleReset += OnPuzzleReset;
+    }
+
+    private void OnPuzzleReset ()
+    {
+        _CurrentIndex = 0;
+        _Transform.position = _SpawnPosition;
+        _Transform.rotation = _SpawnRotation;
+        _CurrentState = PatrolState.Patrolling;
+    }
+
+    private void OnDisable ()
+    {
+        PuzzleSignals.OnPuzzleReset -= OnPuzzleReset;
     }
 
     private void OnDrawGizmos ()

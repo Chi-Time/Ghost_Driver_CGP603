@@ -8,8 +8,8 @@ using UnityEngine.SceneManagement;
 
 class PuzzleController : GameController
 {
+    private string _Scene = "";
     public static PuzzleController Instance { get; private set; }
-    [SerializeField] private string _Scene = "";
 
     private void Awake ()
     {
@@ -25,7 +25,16 @@ class PuzzleController : GameController
 
     private void OnEnable ()
     {
-        Signals.OnPuzzleComplete += OnPuzzleComplete;
+        PuzzleSignals.OnPuzzleReset += OnPuzzleReset;
+        PuzzleSignals.OnPuzzleComplete += OnPuzzleComplete;
+    }
+
+    private void OnPuzzleReset ()
+    {
+        if (_IsPaused)
+        {
+            PauseGame ();
+        }
     }
 
     private void OnPuzzleComplete ()
@@ -35,6 +44,7 @@ class PuzzleController : GameController
 
     private void OnDisable ()
     {
-        Signals.OnPuzzleComplete += OnPuzzleComplete;
+        PuzzleSignals.OnPuzzleReset -= OnPuzzleReset;
+        PuzzleSignals.OnPuzzleComplete += OnPuzzleComplete;
     }
 }

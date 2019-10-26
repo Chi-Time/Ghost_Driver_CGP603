@@ -24,19 +24,19 @@ class Transition : MonoBehaviour
 
     private void OnEnable ()
     {
-        Signals.OnTransitionFinished += OnTransitionFinished;
+        ExplorationSignals.OnTransitionFinished += OnTransitionFinished;
     }
 
     private void OnDisable ()
     {
-        Signals.OnTransitionFinished += OnTransitionFinished;
+        ExplorationSignals.OnTransitionFinished += OnTransitionFinished;
     }
 
     private void OnTriggerEnter (Collider other)
     {
         if (other.CompareTag ("Player"))
         {
-            Signals.TransitionLevel ();
+            ExplorationSignals.TransitionLevel ();
         }
     }
 

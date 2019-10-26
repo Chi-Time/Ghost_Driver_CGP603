@@ -31,14 +31,19 @@ class Sighter : MonoBehaviour
 
     private int _CurrentIndex = 0;
     private LineDrawer _Line = null;
-    private Transform[] _WayPoints = null;
     private Transform _Transform = null;
+    private Transform[] _WayPoints = null;
+    private Vector3 _SpawnPosition = Vector3.zero;
+    private Quaternion _SpawnRotation = Quaternion.identity;
     private SighterState _CurrentState = SighterState.Patrolling;
 
     private void Awake ()
     {
         _Line = new LineDrawer ();
         _Transform = GetComponent<Transform> ();
+
+        _SpawnPosition = _Transform.position;
+        _SpawnRotation = _Transform.rotation;
     }
 
     private void Start ()
@@ -186,6 +191,24 @@ class Sighter : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void OnEnable ()
+    {
+        PuzzleSignals.OnPuzzleReset += OnPuzzleReset;
+    }
+
+    private void OnPuzzleReset ()
+    {
+        _CurrentIndex = 0;
+        _Transform.position = _SpawnPosition;
+        _Transform.rotation = _SpawnRotation;
+        _CurrentState = SighterState.Patrolling;
+    }
+
+    private void OnDisable ()
+    {
+        PuzzleSignals.OnPuzzleReset -= OnPuzzleReset;
     }
 
     private void OnDrawGizmos ()

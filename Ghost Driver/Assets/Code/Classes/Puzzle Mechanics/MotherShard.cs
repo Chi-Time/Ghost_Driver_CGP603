@@ -60,22 +60,22 @@ public class MotherShard : MonoBehaviour
         }
     }
 
-    //private void OnEnable ()
-    //{
-    //    EventManager.Instance.AddListener<LevelReset> (OnLevelReset);
-    //}
+    private void OnEnable ()
+    {
+        PuzzleSignals.OnPuzzleReset += OnPuzzleReset;
+    }
 
-    //private void OnLevelReset (LevelReset e)
-    //{
-    //    if (this.gameObject.activeSelf == false)
-    //        this.gameObject.SetActive (true);
+    private void OnPuzzleReset ()
+    {
+        if (this.gameObject.activeSelf == false)
+            this.gameObject.SetActive (true);
 
-    //    if (_HasActivated)
-    //        ActivateMotherShard ();
-    //}
+        if (_HasActivated)
+            ActivateMotherShard ();
+    }
 
-    //private void OnDestroy ()
-    //{
-    //    EventManager.Instance.RemoveListener<LevelReset> (OnLevelReset);
-    //}
+    private void OnDestroy ()
+    {
+        PuzzleSignals.OnPuzzleReset -= OnPuzzleReset;
+    }
 }

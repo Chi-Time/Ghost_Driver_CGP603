@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[RequireComponent (typeof (Collider))]
+[RequireComponent (typeof(Renderer), typeof (Collider))]
 public class Gate : MonoBehaviour
 {
     public Key Key { get; set; }
@@ -47,7 +47,7 @@ public class Gate : MonoBehaviour
         if (other.CompareTag ("Player"))
         {
             //other.transform.position = new Vector3 (Mathf.RoundToInt (other.transform.position.x), Mathf.RoundToInt (other.transform.position.y), 0.0f);
-            Signals.CompletePuzzle ();
+            PuzzleSignals.CompletePuzzle ();
         }
     }
 }

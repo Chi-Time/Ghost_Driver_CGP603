@@ -21,12 +21,12 @@ class CameraTransition : MonoBehaviour
 
     private void OnEnable ()
     {
-        Signals.OnLevelTransition += OnTransitionLevel;
+        ExplorationSignals.OnLevelTransition += OnTransitionLevel;
     }
 
     private void OnDisable ()
     {
-        Signals.OnLevelTransition -= OnTransitionLevel;
+        ExplorationSignals.OnLevelTransition -= OnTransitionLevel;
     }
 
     private void OnTransitionLevel ()
@@ -51,6 +51,6 @@ class CameraTransition : MonoBehaviour
         // Change blending mode from Fade to Opaque and stop z depth drawing.
         material.SetColor ("_Color", new Color (material.color.r, material.color.g, material.color.b, targetOpacity));
 
-        Signals.FinishTransition ();
+        ExplorationSignals.FinishTransition ();
     }
 }
