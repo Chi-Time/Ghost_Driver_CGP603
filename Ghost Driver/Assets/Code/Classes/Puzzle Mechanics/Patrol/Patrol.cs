@@ -16,6 +16,10 @@ class Patrol : MonoBehaviour
     [Tooltip ("Should the enemy go back to the start position at the end? " +
         "\nOr should they reverse back through their route?")]
     [SerializeField] private bool _ShouldReverse = false;
+    [Tooltip ("Should an editor path be displayed for the AI.")]
+    [SerializeField] private bool _ShouldDisplayPath = false;
+    [Tooltip ("The color to display the path lines as in the editor.")]
+    [SerializeField] private Color _PathColor = Color.white;
 
     [Header ("Rotation")]
     [Tooltip ("How long the Agent takes to turn.")]
@@ -154,5 +158,43 @@ class Patrol : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void OnDrawGizmos ()
+    {
+        if (false == _ShouldDisplayPath)
+            return;
+
+        var from = Vector3.zero;
+        var to = Vector3.zero;
+
+        if (_WaypointHolder != null)
+        {
+            for (int i = 0; i < _WaypointHolder.transform.childCount; i++)
+            {
+                if (_WaypointHolder.transform.GetChild (i).gameObject.activeSelf == false)
+                    continue;
+
+                from = _WaypointHolder.transform.GetChild (i).position;
+
+                if (_ShouldReverse)
+                {
+                    if (i + 1 >= _WaypointHolder.transform.childCount)
+                        return;
+                    else
+                        to = _WaypointHolder.transform.GetChild (i + 1).position;
+                }
+                else
+                {
+                    if (i + 1 >= _WaypointHolder.transform.childCount)
+                        to = _WaypointHolder.transform.GetChild (0).position;
+                    else
+                        to = _WaypointHolder.transform.GetChild (i + 1).position;
+                }
+
+                Gizmos.color = _PathColor;
+                Gizmos.DrawLine (from, to);
+            }
+        }
     }
 }

@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _SightDistance: 3
-  _TurnTimer: 1
+  _TurnTimer: 0.5
   _TurnSpeed: 1
   _ClockwiseTurning: 1
   _CurrentRotationType: 0

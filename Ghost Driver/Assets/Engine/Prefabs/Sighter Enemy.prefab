@@ -217,6 +217,9 @@ MonoBehaviour:
   _SightDistance: 2
   _Speed: 3
   _WaypointHolder: {fileID: 7213633496714600893}
+  _ShouldReverse: 0
+  _ShouldDisplayPath: 1
+  _PathColor: {r: 1, g: 1, b: 1, a: 1}
   _TurnSpeed: 0.5
 --- !u!1 &7213633496714600893
 GameObject:

@@ -170,6 +170,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Speed: 4
   _WaypointHolder: {fileID: 3845581301741393713}
+  _ShouldReverse: 0
+  _ShouldDisplayPath: 1
+  _PathColor: {r: 1, g: 1, b: 1, a: 1}
   _TurnSpeed: 0.25
 --- !u!1 &3845581302211449682
 GameObject:

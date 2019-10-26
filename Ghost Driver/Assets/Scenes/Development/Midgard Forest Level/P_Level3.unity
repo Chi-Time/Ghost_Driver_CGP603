@@ -2556,6 +2556,11 @@ PrefabInstance:
       propertyPath: _TurnSpeed
       value: 0.25
       objectReference: {fileID: 0}
+    - target: {fileID: 3845581301771446661, guid: 5f01a4499bbc0b24d8096296dfcf0195,
+        type: 3}
+      propertyPath: _ShouldReverse
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3845581301741393713, guid: 5f01a4499bbc0b24d8096296dfcf0195,
         type: 3}
       propertyPath: m_StaticEditorFlags

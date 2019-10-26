@@ -204,7 +204,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 278eba7f424964e4ba02a6ad4b3e4693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _FadeLength: 2
+  _CurrentState: 0
   _DialogueScreen: {fileID: 0}
   _DialogueManager:
     _Scene: {fileID: 4900000, guid: addf407622154c3469345e1cf715b064, type: 3}
+    _DelayTime: 0.006
