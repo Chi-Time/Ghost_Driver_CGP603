@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+//TODO: Consider ripping out the movement logic along the route to it's own sub-component as well as the sight logic. 
+//TODO: Find way to seperate rotation logic to it's own sub-component too if possible.
+
 class Sighter : MonoBehaviour
 {
-    enum SighterState { Patrolling, Watching }
+    enum SighterState { Patrolling, Reversing, Turning }
 
     [Header("Sight")]
     [Tooltip("How many tiles ahead the agent see.")]
@@ -14,18 +17,13 @@ class Sighter : MonoBehaviour
     [SerializeField] private float _Speed = 1.0f;
     [Tooltip("The gameobject containing all of the enemies waypoints.")]
     [SerializeField] GameObject _WaypointHolder = null;
-    //[Tooltip ("Should the enemy go back to the start position at the end? \nOr should they reverse back through their route?")]
-    //[SerializeField] private bool _ShouldReverse = false;
+    [Tooltip ("Should the enemy go back to the start position at the end? " +
+        "\nOr should they reverse back through their route?")]
+    [SerializeField] private bool _ShouldReverse = false;
 
     [Header("Rotation")]
-    [Tooltip("How long before the Agent turns to a new direction")]
-    [SerializeField] private float _TurnTimer = 1.0f;
     [Tooltip("How long the Agent takes to turn.")]
-    [SerializeField] private float _TurnSpeed = 3.0f;
-    [Tooltip("Should the agent rotate in a clockwise fashion?")]
-    [SerializeField] private bool _ClockwiseTurning = true;
-    [Tooltip("Should the agent turn in 45, 90 or 180 degree angles?")]
-    [SerializeField] private RotationType _CurrentRotationType = RotationType.Eighths;
+    [SerializeField] private float _TurnSpeed = 1.0f;
 
     private int _CurrentIndex = 0;
     private LineDrawer _Line = null;
@@ -52,9 +50,6 @@ class Sighter : MonoBehaviour
         {
             _WayPoints[i] = _WaypointHolder.transform.GetChild(i);
         }
-
-        // Assign the reference to null to save memory.
-        _WaypointHolder = null;
     }
 
     private void Update()
@@ -76,8 +71,7 @@ class Sighter : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_CurrentState == SighterState.Patrolling)
-            Move();
+        Move ();
     }
 
     private void Move()
@@ -86,7 +80,8 @@ class Sighter : MonoBehaviour
 
         if (IsAtNextPoint(currentWayPoint))
         {
-            _CurrentIndex++;
+            CheckState ();
+            ChangeIndex ();
             StartCoroutine(RotateTo());
         }
 
@@ -124,18 +119,19 @@ class Sighter : MonoBehaviour
 
     IEnumerator RotateTo()
     {
-        _CurrentState = SighterState.Watching;
-
         float timer = 0.0f;
+        SighterState startState = _CurrentState;
         Vector3 nextWaypoint = GetNextWaypoint().position;
-        Quaternion currentRotation = _Transform.rotation;
+        Quaternion startRotation = _Transform.rotation;
         Quaternion nextRotation = Quaternion.LookRotation(Vector3.forward, nextWaypoint - _Transform.position);
+
+        _CurrentState = SighterState.Turning;
 
         while (timer <= _TurnSpeed)
         {
             timer += Time.fixedDeltaTime;
 
-            var rotation = Quaternion.Lerp(currentRotation, nextRotation, timer / _TurnSpeed);
+            var rotation = Quaternion.Lerp(startRotation, nextRotation, timer / _TurnSpeed);
             _Transform.rotation = rotation;
 
             yield return new WaitForFixedUpdate();
@@ -143,6 +139,48 @@ class Sighter : MonoBehaviour
 
         _Transform.rotation = nextRotation;
 
-        _CurrentState = SighterState.Patrolling;
+        _CurrentState = startState;
+    }
+
+    private void CheckState ()
+    {
+        if (RouteHasEnded ())
+        {
+            if (_ShouldReverse)
+                _CurrentState = SighterState.Reversing;
+            else
+                _CurrentState = SighterState.Patrolling;
+        }
+
+        if (_CurrentIndex <= 0)
+            _CurrentState = SighterState.Patrolling;
+    }
+
+    private void ChangeIndex ()
+    {
+        if (RouteHasEnded ())
+        {
+            if (_CurrentState == SighterState.Patrolling)
+                _CurrentIndex = 0;
+            else if (_CurrentState == SighterState.Reversing)
+                _CurrentIndex--;
+        }
+        else
+        {
+            if (_CurrentState == SighterState.Patrolling)
+                _CurrentIndex++;
+            else if (_CurrentState == SighterState.Reversing)
+                _CurrentIndex--;
+        }
+    }
+
+    private bool RouteHasEnded ()
+    {
+        if (_CurrentIndex >= _WayPoints.Length - 1)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

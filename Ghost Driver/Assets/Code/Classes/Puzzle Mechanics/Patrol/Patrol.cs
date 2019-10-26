@@ -7,14 +7,15 @@ using UnityEngine;
 
 class Patrol : MonoBehaviour
 {
-    enum PatrolState { Patrolling, Turning }
+    enum PatrolState { Patrolling, Reversing, Turning }
 
     [Tooltip ("The speed at which the agent moves to each waypoint.")]
     [SerializeField] private float _Speed = 4.0f;
     [Tooltip ("The gameobject containing all of the enemies waypoints.")]
     [SerializeField] GameObject _WaypointHolder = null;
-    //[Tooltip ("Should the enemy go back to the start position at the end? \nOr should they reverse back through their route?")]
-    //[SerializeField] private bool _ShouldReverse = false;
+    [Tooltip ("Should the enemy go back to the start position at the end? " +
+        "\nOr should they reverse back through their route?")]
+    [SerializeField] private bool _ShouldReverse = false;
 
     [Header ("Rotation")]
     [Tooltip ("How long the Agent takes to turn.")]
@@ -39,32 +40,26 @@ class Patrol : MonoBehaviour
             _WayPoints[i] = _WaypointHolder.transform.GetChild (i);
         }
 
-        _WaypointHolder = null;
+        print (_WayPoints.Length - 1);
     }
 
     private void FixedUpdate ()
     {
-        if (_CurrentState == PatrolState.Patrolling)
-            Move ();
+        Move ();
     }
 
     private void Move ()
     {
-        var currentWayPoint = GetNextWaypoint ();
+        var currentWaypoint = GetNextWaypoint ();
 
-        if (IsAtNextPoint (currentWayPoint))
+        if (HasReachedNextPoint (currentWaypoint))
         {
-            _CurrentIndex++;
+            CheckState ();
+            ChangeIndex ();
             Rotate ();
         }
 
-        MoveToNextPoint (currentWayPoint);
-    }
-
-    private void Rotate ()
-    {
-        var currentWayPoint = GetNextWaypoint ();
-        _Transform.up = currentWayPoint.position - _Transform.position;
+        MoveToNextPoint (currentWaypoint);
     }
 
     private Transform GetNextWaypoint ()
@@ -75,7 +70,13 @@ class Patrol : MonoBehaviour
         return _WayPoints[_CurrentIndex];
     }
 
-    private bool IsAtNextPoint (Transform waypoint)
+    private void Rotate ()
+    {
+        var currentWayPoint = GetNextWaypoint ();
+        _Transform.up = currentWayPoint.position - _Transform.position;
+    }
+
+    private bool HasReachedNextPoint (Transform waypoint)
     {
         if (_Transform.position == waypoint.position)
         {
@@ -90,17 +91,7 @@ class Patrol : MonoBehaviour
         _Transform.position = Vector3.MoveTowards (_Transform.position, waypoint.position, _Speed * Time.deltaTime);
     }
 
-    private bool Approximately (float a, float b, float tolerance)
-    {
-        return (Mathf.Abs (a - b) < tolerance);
-    }
-
-    private bool VectorApproximation (Vector3 a, Vector3 b, float tolerance)
-    {
-        return (Mathf.Abs(a.x - b.x) < tolerance && Mathf.Abs (a.y - b.y) < tolerance && Mathf.Abs (a.y - b.y) < tolerance);
-    }
-
-    IEnumerator RotateTo ()
+    private IEnumerator RotateTo ()
     {
         _CurrentState = PatrolState.Turning;
 
@@ -122,5 +113,47 @@ class Patrol : MonoBehaviour
         _Transform.rotation = nextRotation;
 
         _CurrentState = PatrolState.Patrolling;
+    }
+
+    private void CheckState ()
+    {
+        if (RouteHasEnded ())
+        {
+            if (_ShouldReverse)
+                _CurrentState = PatrolState.Reversing;
+            else
+                _CurrentState = PatrolState.Patrolling;
+        }
+
+        if (_CurrentIndex <= 0)
+            _CurrentState = PatrolState.Patrolling;
+    }
+
+    private void ChangeIndex ()
+    {
+        if (RouteHasEnded ())
+        {
+            if (_CurrentState == PatrolState.Patrolling)
+                _CurrentIndex = 0;
+            else if (_CurrentState == PatrolState.Reversing)
+                _CurrentIndex--;
+        }
+        else
+        {
+            if (_CurrentState == PatrolState.Patrolling)
+                _CurrentIndex++;
+            else if (_CurrentState == PatrolState.Reversing)
+                _CurrentIndex--;
+        }
+    }    
+
+    private bool RouteHasEnded ()
+    {
+        if (_CurrentIndex >= _WayPoints.Length - 1)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

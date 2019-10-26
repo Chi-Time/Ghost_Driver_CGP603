@@ -5,15 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
+//TODO: Implement better teleporter system which makes use of a parent gameobject that contains them both under it so that it can tell who the partners are and organise it.
+
 [RequireComponent (typeof (Collider))]
 public class Teleporter : MonoBehaviour
 {
-    public int ID { get { return _ID; } }
+    public char ID { get { return _ID; } }
     public Transform Transform { get { return _Transform; } }
     public bool CanTeleport { get { return _CanTeleport; } set { _CanTeleport = value; } }
 
     [Tooltip ("The ID of this teleporter and it's partner.")]
-    [SerializeField] private int _ID = 0;
+    [SerializeField] private char _ID = 'A';
 
     private bool _CanTeleport = true;
     private float _DelayTimer = 0.05f;
