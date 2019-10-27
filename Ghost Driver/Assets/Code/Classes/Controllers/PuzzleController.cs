@@ -26,7 +26,6 @@ class PuzzleController : GameController
     private void OnEnable ()
     {
         PuzzleSignals.OnPuzzleReset += OnPuzzleReset;
-        PuzzleSignals.OnPuzzleComplete += OnPuzzleComplete;
     }
 
     private void OnPuzzleReset ()
@@ -37,14 +36,8 @@ class PuzzleController : GameController
         }
     }
 
-    private void OnPuzzleComplete ()
-    {
-        SceneManager.LoadScene (_Scene);
-    }
-
     private void OnDisable ()
     {
         PuzzleSignals.OnPuzzleReset -= OnPuzzleReset;
-        PuzzleSignals.OnPuzzleComplete += OnPuzzleComplete;
     }
 }

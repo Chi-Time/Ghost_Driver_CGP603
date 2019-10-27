@@ -22,15 +22,15 @@ class Transition : MonoBehaviour
         GetComponent<Collider> ().isTrigger = true;
     }
 
-    private void OnEnable ()
-    {
-        ExplorationSignals.OnTransitionFinished += OnTransitionFinished;
-    }
+    //private void OnEnable ()
+    //{
+    //    ExplorationSignals.OnTransitionFinished += OnTransitionFinished;
+    //}
 
-    private void OnDisable ()
-    {
-        ExplorationSignals.OnTransitionFinished += OnTransitionFinished;
-    }
+    //private void OnDisable ()
+    //{
+    //    ExplorationSignals.OnTransitionFinished += OnTransitionFinished;
+    //}
 
     private void OnTriggerEnter (Collider other)
     {
@@ -40,8 +40,7 @@ class Transition : MonoBehaviour
         }
     }
 
-    public void OnTransitionFinished ()
-    {
-        SceneManager.LoadScene (_Scene);
-    }
+    //public void OnTransitionFinished ()
+    //{
+    //}
 }

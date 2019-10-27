@@ -5,6 +5,7 @@ public class Gate : MonoBehaviour
 {
     public Key Key { get; set; }
 
+    [Tooltip ("The key used to open the gate if it needs one.")]
     [SerializeField] private GameObject _Key = null;
 
     private Renderer _Renderer = null;
