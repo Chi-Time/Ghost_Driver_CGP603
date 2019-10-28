@@ -2861,6 +2861,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 830898520}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &947014412 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8307374927403591370, guid: 6db2afe91b4b63d4eb54692490894829,
+    type: 3}
+  m_PrefabInstance: {fileID: 699635185}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96f7c73dae23d7d489606e94efc447d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &954859382
 GameObject:
   m_ObjectHideFlags: 0
@@ -7248,5 +7260,10 @@ PrefabInstance:
       propertyPath: _Scene
       value: SC_Main_Menu
       objectReference: {fileID: 0}
+    - target: {fileID: 1426527340179119180, guid: 13b2caa933edd084bbb8e02bcdb8ecac,
+        type: 3}
+      propertyPath: _GameOverScreenController
+      value: 
+      objectReference: {fileID: 947014412}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13b2caa933edd084bbb8e02bcdb8ecac, type: 3}

@@ -4910,6 +4910,11 @@ PrefabInstance:
       propertyPath: _Scene
       value: SC_Main_Menu
       objectReference: {fileID: 0}
+    - target: {fileID: 1426527340179119180, guid: 13b2caa933edd084bbb8e02bcdb8ecac,
+        type: 3}
+      propertyPath: _BGM
+      value: 
+      objectReference: {fileID: 8300000, guid: 9668d4910d2317c45931e4f6b63e01e4, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13b2caa933edd084bbb8e02bcdb8ecac, type: 3}
 --- !u!114 &4268650667238101402 stripped

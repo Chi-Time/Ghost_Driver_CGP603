@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 class SceneLoader : MonoBehaviour
 {
+    public string Scene { get => _Scene; set => _Scene = value; }
+
     [Tooltip ("The scene to load.")]
     [SerializeField] private string _Scene = "SC_Main_Menu";
     [Tooltip ("The progress bar to update.")]
@@ -18,15 +20,15 @@ class SceneLoader : MonoBehaviour
 
     private void OnTransitionFinished ()
     {
-        Setup ();
+        Load ();
     }
     
     private void OnPuzzleComplete ()
     {
-        Setup ();
+        Load ();
     }
 
-    private void Setup ()
+    public void Load ()
     {
         foreach (Transform child in transform)
         {
@@ -42,7 +44,7 @@ class SceneLoader : MonoBehaviour
         ExplorationSignals.OnTransitionFinished -= OnTransitionFinished;
     }
 
-    // The coroutine runs on its own at the same time as Update() and takes an integer indicating which scene to load.
+    // The coroutine runs on its own at the same time as Update() and takes a string indicating which scene to load.
     IEnumerator LoadNewScene ()
     {
         // Start an asynchronous operation to load the scene that was passed to the LoadNewScene coroutine.

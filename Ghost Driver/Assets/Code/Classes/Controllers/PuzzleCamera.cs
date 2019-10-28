@@ -28,6 +28,8 @@ class PuzzleCamera : MonoBehaviour
 
     private void Update ()
     {
+
+
         if (Input.GetKeyUp (KeyCode.Tab) || Input.GetKeyUp (KeyCode.Backspace))
         {
             _IsZoomedOut = !_IsZoomedOut;

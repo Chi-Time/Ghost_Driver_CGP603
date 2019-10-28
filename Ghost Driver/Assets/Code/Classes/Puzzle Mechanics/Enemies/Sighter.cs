@@ -71,8 +71,7 @@ class Sighter : MonoBehaviour
             {
                 if (hit.collider.CompareTag ("Player"))
                 {
-                    //TODO: Implement sight game logic.
-                    print ("The Sighter see's you");
+                    PuzzleSignals.FailPuzzle ();
                 }
             }
         }
