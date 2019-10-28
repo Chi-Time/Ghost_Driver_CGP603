@@ -9,7 +9,7 @@ using UnityEngine.UI;
 //TODO: Check about the whole loading in AWAKE and stuff.
 //TODO: Implement relic text system.
 
-class UIRelicScreenController : MonoBehaviour
+class UIRelicScreenController : MonoBehaviour, IWakeable
 {
     private Text _RelicText = null;
 
@@ -17,7 +17,7 @@ class UIRelicScreenController : MonoBehaviour
 
     private void Awake ()
     {
-        _FPSController = FindObjectOfType<FirstPersonController> ().GetComponent<FirstPersonController> ();
+        
     }
 
     private void OnEnable ()
@@ -45,5 +45,11 @@ class UIRelicScreenController : MonoBehaviour
     public void Close ()
     {
         DisplayRelicMenu (false);   
+    }
+
+    public void Waken ()
+    {
+        print ("I'm Woke");
+        _FPSController = FindObjectOfType<FirstPersonController> ().GetComponent<FirstPersonController> ();
     }
 }
