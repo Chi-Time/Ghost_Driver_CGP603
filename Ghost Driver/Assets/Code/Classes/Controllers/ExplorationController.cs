@@ -14,6 +14,12 @@ class ExplorationController : GameController
 
     private void Awake ()
     {
+        SetInstance ();
+        ChangeMusicTrack ();
+    }
+
+    private void SetInstance ()
+    {
         // If more than one instance exists, delete any extras.
         if (Instance != null && Instance != this)
         {
@@ -22,10 +28,16 @@ class ExplorationController : GameController
         }
 
         Instance = this;
+    }
 
-        var currentTrack = MusicController.Instance.GetCurrentTrackName ();
+    private void ChangeMusicTrack ()
+    {
+        if (MusicController.Instance != null)
+        {
+            var currentTrack = MusicController.Instance.GetCurrentTrackName ();
 
-        if (currentTrack != _BGM.name)
-            MusicController.Instance.ChangeTrack (_BGM);
+            if (currentTrack != _BGM.name)
+                MusicController.Instance.ChangeTrack (_BGM);
+        }
     }
 }

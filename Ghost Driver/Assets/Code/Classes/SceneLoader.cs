@@ -12,12 +12,6 @@ class SceneLoader : MonoBehaviour
     [Tooltip ("The progress bar to update.")]
     [SerializeField] private Image _ProgressBar = null;
 
-    private void Awake ()
-    {
-        PuzzleSignals.OnPuzzleComplete += OnPuzzleComplete;
-        ExplorationSignals.OnTransitionFinished += OnTransitionFinished;
-    }
-
     private void OnTransitionFinished ()
     {
         Load ();
@@ -56,5 +50,11 @@ class SceneLoader : MonoBehaviour
             _ProgressBar.fillAmount = async.progress;
             yield return new WaitForEndOfFrame ();
         }
+    }
+
+    public void Awake ()
+    {
+        PuzzleSignals.OnPuzzleComplete += OnPuzzleComplete;
+        ExplorationSignals.OnTransitionFinished += OnTransitionFinished;
     }
 }

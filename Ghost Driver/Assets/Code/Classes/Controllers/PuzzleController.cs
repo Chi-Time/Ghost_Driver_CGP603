@@ -20,6 +20,11 @@ class PuzzleController : GameController
 
     private void Awake ()
     {
+        SetInstance ();
+    }
+
+    private void SetInstance ()
+    {
         // If more than one instance exists, delete any extras.
         if (Instance != null && Instance != this)
         {
@@ -32,13 +37,21 @@ class PuzzleController : GameController
 
     private void OnEnable ()
     {
-        var currentTrack = MusicController.Instance.GetCurrentTrackName ();
-
-        if (currentTrack != _BGM.name)
-            MusicController.Instance.ChangeTrack (_BGM);
+        ChangeMusicTrack ();
 
         PuzzleSignals.OnPuzzleReset += OnPuzzleReset;
         PuzzleSignals.OnPuzzleFailed += OnPuzzleFailed;
+    }
+
+    private void ChangeMusicTrack ()
+    {
+        if (MusicController.Instance != null)
+        {
+            var currentTrack = MusicController.Instance.GetCurrentTrackName ();
+
+            if (currentTrack != _BGM.name)
+                MusicController.Instance.ChangeTrack (_BGM);
+        }
     }
 
     private void OnPuzzleReset ()
