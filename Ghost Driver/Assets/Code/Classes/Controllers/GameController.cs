@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
+[RequireComponent (typeof (SceneController))]
 class GameController : MonoBehaviour
 {
     [Tooltip ("The pause screen used for this level.")]

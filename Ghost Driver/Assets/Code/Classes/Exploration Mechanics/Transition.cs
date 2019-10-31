@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [RequireComponent (typeof (Rigidbody), typeof (Collider))]
-class Transition : MonoBehaviour
+class EndLevelTransition : MonoBehaviour
 {
     [Tooltip ("The scene to transition to.")]
     [SerializeField] private string _Scene = "";
@@ -22,16 +22,6 @@ class Transition : MonoBehaviour
         GetComponent<Collider> ().isTrigger = true;
     }
 
-    //private void OnEnable ()
-    //{
-    //    ExplorationSignals.OnTransitionFinished += OnTransitionFinished;
-    //}
-
-    //private void OnDisable ()
-    //{
-    //    ExplorationSignals.OnTransitionFinished += OnTransitionFinished;
-    //}
-
     private void OnTriggerEnter (Collider other)
     {
         if (other.CompareTag ("Player"))
@@ -39,8 +29,4 @@ class Transition : MonoBehaviour
             ExplorationSignals.TransitionLevel ();
         }
     }
-
-    //public void OnTransitionFinished ()
-    //{
-    //}
 }

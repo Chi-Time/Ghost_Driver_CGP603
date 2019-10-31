@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-class UIGameOverScreenController : MonoBehaviour
+class UIGameOverScreenController : MonoBehaviour, IWakeable
 {
     private SceneLoader _SceneLoader = null;
 
-    private void Awake ()
+    public void Waken ()
     {
         var loaders = gameObject.FindAllObjectsOfType<SceneLoader> ();
         _SceneLoader = loaders[0];

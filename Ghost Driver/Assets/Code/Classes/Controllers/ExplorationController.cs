@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
+//TODO: Create states for each part of the game. Paused state, Reading Relic State, Talking state, Level transition state, etc.
+
 class ExplorationController : GameController
 {
     public static ExplorationController Instance { get; private set; }
@@ -40,4 +42,14 @@ class ExplorationController : GameController
                 MusicController.Instance.ChangeTrack (_BGM);
         }
     }
+
+    //private void OnEnable ()
+    //{
+    //    ExplorationSignals.OnLevelTransition += OnLevelTransition;
+    //}
+
+    //private void OnDisable ()
+    //{
+    //    ExplorationSignals.OnLevelTransition -= OnLevelTransition;
+    //}
 }

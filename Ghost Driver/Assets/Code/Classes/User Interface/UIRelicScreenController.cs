@@ -15,9 +15,9 @@ class UIRelicScreenController : MonoBehaviour, IWakeable
 
     private FirstPersonController _FPSController = null;
 
-    private void Awake ()
+    public void Waken ()
     {
-        
+        _FPSController = FindObjectOfType<FirstPersonController> ().GetComponent<FirstPersonController> ();
     }
 
     private void OnEnable ()
@@ -45,11 +45,5 @@ class UIRelicScreenController : MonoBehaviour, IWakeable
     public void Close ()
     {
         DisplayRelicMenu (false);   
-    }
-
-    public void Waken ()
-    {
-        print ("I'm Woke");
-        _FPSController = FindObjectOfType<FirstPersonController> ().GetComponent<FirstPersonController> ();
     }
 }

@@ -3,7 +3,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-class SceneLoader : MonoBehaviour
+//TODO: MAke scene loader work better as currently having people needing to find it is stupid and messy.
+
+class SceneLoader : MonoBehaviour, IWakeable
 {
     public string Scene { get => _Scene; set => _Scene = value; }
 
@@ -11,6 +13,12 @@ class SceneLoader : MonoBehaviour
     [SerializeField] private string _Scene = "SC_Main_Menu";
     [Tooltip ("The progress bar to update.")]
     [SerializeField] private Image _ProgressBar = null;
+
+    public void Waken ()
+    {
+        PuzzleSignals.OnPuzzleComplete += OnPuzzleComplete;
+        ExplorationSignals.OnTransitionFinished += OnTransitionFinished;
+    }
 
     private void OnTransitionFinished ()
     {
@@ -24,6 +32,8 @@ class SceneLoader : MonoBehaviour
 
     public void Load ()
     {
+        this.gameObject.SetActive (true);
+
         foreach (Transform child in transform)
         {
             child.gameObject.SetActive (true);
@@ -50,11 +60,5 @@ class SceneLoader : MonoBehaviour
             _ProgressBar.fillAmount = async.progress;
             yield return new WaitForEndOfFrame ();
         }
-    }
-
-    public void Awake ()
-    {
-        PuzzleSignals.OnPuzzleComplete += OnPuzzleComplete;
-        ExplorationSignals.OnTransitionFinished += OnTransitionFinished;
     }
 }

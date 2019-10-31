@@ -11,6 +11,17 @@ class SceneController : MonoBehaviour
 
     private void Awake ()
     {
+        SetupInstance ();
+        
+    }
+
+    private void Start ()
+    {
+        WakeSleepers ();
+    }
+
+    private void SetupInstance ()
+    {
         if (Instance != null && Instance != this)
         {
             Destroy (this.gameObject);
@@ -18,10 +29,9 @@ class SceneController : MonoBehaviour
         }
 
         Instance = this;
-
-        WakeSleepers ();
     }
 
+    // Find all inactive objects which have a wakeable interface and wake them up.
     private void WakeSleepers ()
     {
         var sleepyObjects = this.gameObject.FindAllObjectsOfType<IWakeable> ();

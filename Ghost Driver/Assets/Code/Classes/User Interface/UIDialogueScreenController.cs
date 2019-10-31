@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
-class UIDialogueScreenController : MonoBehaviour
+class UIDialogueScreenController : MonoBehaviour, IWakeable
 {
     [Tooltip ("The label used to display the current speaker's name.")]
     [SerializeField] private Text _NameLabel = null;
@@ -16,7 +16,7 @@ class UIDialogueScreenController : MonoBehaviour
     private FirstPersonController _FPSController = null;
     private DialogueManager _CurrentDialogueManager = null;
 
-    private void Awake ()
+    public void Waken ()
     {
         _FPSController = FindObjectOfType<FirstPersonController> ().GetComponent<FirstPersonController> ();
     }

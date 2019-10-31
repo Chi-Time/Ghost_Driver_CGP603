@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 //TODO: Implement failure state properly.
 //TODO: Consider making custom monobehaviour class that has an override so that when it awakes it also awakes all inherited classes through a method call even if they're inactive.
+//TODO: Create states for each part of the game. Paused state, Reading Relic State, Talking state, Level transition state, etc.
 
 class PuzzleController : GameController
 {

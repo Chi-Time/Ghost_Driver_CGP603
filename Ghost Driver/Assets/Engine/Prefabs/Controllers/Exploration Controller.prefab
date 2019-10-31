@@ -44,3 +44,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _PauseScreen: {fileID: 0}
+  _BGM: {fileID: 8300000, guid: 10c7ffae682636b49ace76a26b9235af, type: 3}
