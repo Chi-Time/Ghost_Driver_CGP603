@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2544030806084348040}
-  - component: {fileID: 3009734250080053451}
+  - component: {fileID: 4280658315943136418}
+  - component: {fileID: 4946518260005637067}
   m_Layer: 0
   m_Name: Puzzle Controller
   m_TagString: Untagged
@@ -31,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3009734250080053451
+--- !u!114 &4280658315943136418
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,9 +41,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 3585654642278245413}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d1604c4b2e5f6f418123281cc8d4231, type: 3}
+  m_Script: {fileID: 11500000, guid: f35f43dfaab96934b930f197c2100fe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _PauseScreen: {fileID: 0}
+--- !u!114 &4946518260005637067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3585654642278245413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc59d183f4761644cb6af5aa1f2a4cea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _BGM: {fileID: 8300000, guid: 9668d4910d2317c45931e4f6b63e01e4, type: 3}
-  _GameOverScreenController: {fileID: 0}
+  _NextScene: P_Level2
+  _MenuScene: SC_Main_Menu

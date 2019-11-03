@@ -54,8 +54,7 @@ class Sentinel : MonoBehaviour
             {
                 if (hit.collider.CompareTag("Player"))
                 {
-                    //TODO: Implement sight game logic.
-                    print("The Sentinel see's you.");
+                    PuzzleSignals.FailPuzzle ();
                 }
             }
         }

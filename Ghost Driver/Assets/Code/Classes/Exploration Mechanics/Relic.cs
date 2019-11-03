@@ -10,7 +10,6 @@ public class Relic : MonoBehaviour
 {
     [Tooltip ("The relic's text to display to the player.")]
     [SerializeField] private TextAsset _RelicText = null;
-    private UIRelicScreenController _RelicScreen = null;
 
     /// <summary>Reference to the outline compnent added to the object.</summary>
     private Outline _Outline = null;
@@ -39,14 +38,6 @@ public class Relic : MonoBehaviour
         return scene;
     }
 
-    private void Start ()
-    {
-        _RelicScreen = this.gameObject.FindFirstObjectOfType<UIRelicScreenController> ();
-
-        if (_RelicScreen == null)
-            Debug.LogError ("Please ensure there is a relic screen in the scene!");
-    }
-
     private void OnMouseEnter ()
     {
         _Outline.enabled = true;
@@ -59,7 +50,7 @@ public class Relic : MonoBehaviour
 
     private void OnMouseOver ()
     {
-        if (Input.GetKey (KeyCode.E) | Input.GetMouseButtonDown (0))
+        if (Input.GetKeyDown (KeyCode.E) | Input.GetMouseButtonDown (0))
         {
             Destroy (this.gameObject);
             CollectRelic ();
@@ -68,7 +59,7 @@ public class Relic : MonoBehaviour
 
     private void CollectRelic ()
     {
-        _RelicScreen.DisplayText (_RelicScene.Name, _RelicScene.Description);
+        ExplorationSignals.CollectRelic (_RelicScene);
         LogBook.AddNewRelic (_RelicScene);
     }
 }

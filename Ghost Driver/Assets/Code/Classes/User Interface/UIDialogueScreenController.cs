@@ -13,37 +13,27 @@ class UIDialogueScreenController : MonoBehaviour, IWakeable
     [Tooltip ("The label used to display the current speaker's text.")]
     [SerializeField] private Text _RelicLabel = null;
 
-    private FirstPersonController _FPSController = null;
     private DialogueManager _CurrentDialogueManager = null;
 
     public void Waken ()
     {
-        _FPSController = FindObjectOfType<FirstPersonController> ().GetComponent<FirstPersonController> ();
+        ExplorationSignals.OnDialogueStarted += OnDialogueStarted;
+
+        //Unity hack because it never calls ondestory on objects that are inactive for the whole scene.
+        // It also doesn't fire off many other basic functions because it's a useless engine.
+        this.gameObject.SetActive (true);
+        this.gameObject.SetActive (false);
     }
 
-    private void OnEnable ()
+    private void OnDialogueStarted (DialogueManager manager)
     {
-        Setup ();
-        NextLine ();
-    }
+        this.gameObject.SetActive (true);
 
-    private void Setup ()
-    {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-        _FPSController.enabled = false;
-    }
-
-    /// <summary>Begin's a dialogue scene and enables the menu.</summary>
-    /// <param name="manager">The manager of the current dialogue scene.</param>
-    public void Begin (DialogueManager manager)
-    {
         if (manager == null)
             return;
 
         _CurrentDialogueManager = manager;
-
-        this.gameObject.SetActive (true);
+        NextLine ();
     }
 
     public void NextLine ()
@@ -60,19 +50,22 @@ class UIDialogueScreenController : MonoBehaviour, IWakeable
     {
         Disable ();
         EndDialogue ();
+        ExplorationSignals.QuitDialogue ();
     }
 
     private void Disable ()
     {
         this.gameObject.SetActive (false);
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        _FPSController.enabled = true;
     }
 
     private void EndDialogue ()
     {
         _CurrentDialogueManager.EndDialogue ();
         _CurrentDialogueManager = null;
+    }
+
+    private void OnDestroy ()
+    {
+        ExplorationSignals.OnDialogueStarted -= OnDialogueStarted;
     }
 }

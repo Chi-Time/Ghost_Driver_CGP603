@@ -32,7 +32,7 @@ class Alias : MonoBehaviour
         if (dialogueScreen == null)
             Debug.LogError ("Dialogue screen not found!!, Please ensure there is one in the scene");
 
-        _DialogueManager.Constructor (dialogueScreen);
+        _DialogueManager.Constructor ();
     }
 
     private void OnTriggerEnter (Collider other)
@@ -80,7 +80,9 @@ class Alias : MonoBehaviour
         if (Input.GetKeyUp (KeyCode.E) | Input.GetMouseButtonUp (0))
         {
             if (_CurrentState == AliasStates.Shown)
+            {
                 _DialogueManager.BeginDialogue ();
+            }
         }
     }
 }

@@ -16,19 +16,15 @@ class DialogueManager
 
     /// <summary>The current index of the dialogue scene.</summary>
     private int _MessageIndex = -1;
+    /// <summary>The current message that is being displayed.</summary>
     private Message _CurrentMessage = null;
+    /// <summary>The current dialogue scene that has been parsed from the file.</summary>
     private DialogueScene _CurrentScene = null;
-    private UIDialogueScreenController _DialogueScreenController = null;
 
     /// <summary>Faux constructor to setup the class with it's dependencies.</summary>
     /// <param name="dialogueScreen">The UI screen responsible for dialogue processing.</param>
-    public void Constructor (UIDialogueScreenController dialogueScreen)
+    public void Constructor ()
     {
-        _DialogueScreenController = dialogueScreen;
-
-        if (_DialogueScreenController == null)
-            Debug.LogError ("Dialogue manager could not be found!!!");
-
         _CurrentScene = JsonUtility.FromJson<DialogueScene> (_Scene.text);
 
         if (_CurrentScene == null)
@@ -38,10 +34,10 @@ class DialogueManager
     /// <summary>Begins dialogue by displaying dialogue manager to screen.</summary>
     public void BeginDialogue ()
     {
-        _DialogueScreenController.Begin (this);
-
         var dialogueInfo = new DialogueInfo (_CurrentScene);
         LogBook.AddNewDialogue (dialogueInfo);
+
+        ExplorationSignals.StartDialogue (this);
     }
 
     private IEnumerator DisplayMessage (Text relicLabel, Text nameLabel, Message message)

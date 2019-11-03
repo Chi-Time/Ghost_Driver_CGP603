@@ -55,9 +55,21 @@ public class FirstPersonController : MonoBehaviour
     private bool _Jumping;
     private AudioSource _AudioSource;
 
-    private void OnEnable ()
+    private void Awake ()
     {
+        ExplorationSignals.OnDialogueStarted += OnDialogueStarted;
+        ExplorationSignals.OnDialogueQuit += OnDialogueQuit;
         ExplorationSignals.OnLevelTransition += OnLevelTransition;
+    }
+
+    private void OnDialogueStarted (DialogueManager manager)
+    {
+        this.enabled = false;
+    }
+
+    private void OnDialogueQuit ()
+    {
+        this.enabled = true;
     }
 
     private void OnLevelTransition (float length)
@@ -65,9 +77,11 @@ public class FirstPersonController : MonoBehaviour
         this.enabled = false;
     }
 
-    private void OnDisable ()
+    private void OnDestroy ()
     {
-        ExplorationSignals.OnLevelTransition += OnLevelTransition;
+        ExplorationSignals.OnDialogueStarted -= OnDialogueStarted;
+        ExplorationSignals.OnDialogueQuit -= OnDialogueQuit;
+        ExplorationSignals.OnLevelTransition -= OnLevelTransition;
     }
 
     private void Start ()

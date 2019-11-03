@@ -5,17 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class UIMainMenuController : MonoBehaviour
 {
-    private SceneLoader _Loader = null;
+    //private SceneLoader _Loader = null;
 
     private void Awake ()
     {
-        var loaders = gameObject.FindAllObjectsOfType<SceneLoader> ();
-        _Loader = loaders[0];
+        //var loaders = gameObject.FindAllObjectsOfType<SceneLoader> ();
+        //_Loader = loaders[0];
+
+        LogBook.ClearData ();
     }
 
     public void StartGame (string sceneName)
     {
-        _Loader.Load ();
+        SceneLoader.Instance.Load (sceneName);
     }
 
     public void DisplayScreen (GameObject screenToDisplay)

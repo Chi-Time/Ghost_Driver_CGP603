@@ -15,14 +15,11 @@ static class LogBook
 
     public static void AddNewRelic (RelicInfo relic)
     {
-        //foreach (RelicInfo relicData in _Relics)
-        //    if (relicData == relic)
-        //        return;
+        foreach (RelicInfo relicData in _Relics)
+            if (relicData == relic)
+                return;
 
         _Relics.Add (relic);
-
-        foreach (RelicInfo relicData in _Relics)
-            Debug.Log (relicData.Name);
     }
 
     public static void AddNewDialogue (DialogueInfo dialogue)
@@ -34,5 +31,11 @@ static class LogBook
                 return;
 
         _Dialogues.Add (dialogue);
+    }
+
+    public static void ClearData ()
+    {
+        _Relics.Clear ();
+        _Dialogues.Clear ();
     }
 }

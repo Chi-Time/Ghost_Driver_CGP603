@@ -313,6 +313,11 @@ PrefabInstance:
       propertyPath: _Scene
       value: P_Level6
       objectReference: {fileID: 0}
+    - target: {fileID: 8753449424018134093, guid: 2b933257f37acf34c81e5aff830f51e0,
+        type: 3}
+      propertyPath: _NextScene
+      value: P_Level6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b933257f37acf34c81e5aff830f51e0, type: 3}
 --- !u!1 &101867795

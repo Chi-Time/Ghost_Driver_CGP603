@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 4196702339994345752}
   - component: {fileID: 4196702339994345753}
   - component: {fileID: 8385556773061126520}
+  - component: {fileID: 5576487773475637304}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -178,6 +179,21 @@ MonoBehaviour:
   _ZoomDistance: {x: 0.5, y: 0.5, z: 16}
   _NormalDistance: {x: 0.5, y: 0.5, z: 7}
   _Target: {fileID: 4196702340267834389}
+--- !u!114 &5576487773475637304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4196702339994345754}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34382083ad114a07d000fbfb8d76c639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iterations: 2
+  blurSpread: 0.5
+  blurShader: {fileID: 4800000, guid: 57e6deea7c2924e22a5138e2b70bb4dc, type: 3}
 --- !u!1 &4196702340267834393
 GameObject:
   m_ObjectHideFlags: 0

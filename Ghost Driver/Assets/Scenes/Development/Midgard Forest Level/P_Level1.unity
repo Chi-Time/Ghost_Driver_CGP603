@@ -4790,6 +4790,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Puzzle Controller
       objectReference: {fileID: 0}
+    - target: {fileID: 872891421723851683, guid: 2b933257f37acf34c81e5aff830f51e0,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2202780784079845134, guid: 2b933257f37acf34c81e5aff830f51e0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4844,6 +4849,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8753449424018134093, guid: 2b933257f37acf34c81e5aff830f51e0,
+        type: 3}
+      propertyPath: _NextScene
+      value: P_Level3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b933257f37acf34c81e5aff830f51e0, type: 3}

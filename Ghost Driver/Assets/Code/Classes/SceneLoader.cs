@@ -7,30 +7,27 @@ using UnityEngine.SceneManagement;
 
 class SceneLoader : MonoBehaviour, IWakeable
 {
-    public string Scene { get => _Scene; set => _Scene = value; }
-
-    [Tooltip ("The scene to load.")]
-    [SerializeField] private string _Scene = "SC_Main_Menu";
+    public static SceneLoader Instance = null;
+    
     [Tooltip ("The progress bar to update.")]
     [SerializeField] private Image _ProgressBar = null;
 
+    private string _Scene = "SC_Main_Menu";
+
     public void Waken ()
     {
-        PuzzleSignals.OnPuzzleComplete += OnPuzzleComplete;
-        ExplorationSignals.OnTransitionFinished += OnTransitionFinished;
+        if (Instance != null && Instance != this)
+            Destroy (this.gameObject);
+        else
+            Instance = this;
+
+        //Unity hack because it never calls ondestory on objects that are inactive for the whole scene.
+        // It also doesn't fire off many other basic functions because it's a useless engine.
+        this.gameObject.SetActive (true);
+        this.gameObject.SetActive (false);
     }
 
-    private void OnTransitionFinished ()
-    {
-        Load ();
-    }
-    
-    private void OnPuzzleComplete ()
-    {
-        Load ();
-    }
-
-    public void Load ()
+    public void Load (string scene)
     {
         this.gameObject.SetActive (true);
 
@@ -39,13 +36,9 @@ class SceneLoader : MonoBehaviour, IWakeable
             child.gameObject.SetActive (true);
         }
 
-        StartCoroutine (LoadNewScene ());
-    }
+        _Scene = scene;
 
-    private void OnDestroy ()
-    {
-        PuzzleSignals.OnPuzzleComplete -= OnPuzzleComplete;
-        ExplorationSignals.OnTransitionFinished -= OnTransitionFinished;
+        StartCoroutine (LoadNewScene ());
     }
 
     // The coroutine runs on its own at the same time as Update() and takes a string indicating which scene to load.

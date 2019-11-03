@@ -115,4 +115,10 @@ public class PuzzlePlayerController : MonoBehaviour
     {
         PuzzleSignals.OnPuzzleReset -= OnPuzzleReset;
     }
+
+    private void OnTriggerEnter (Collider collider)
+    {
+        if (collider.CompareTag ("Enemy"))
+            PuzzleSignals.FailPuzzle ();
+    }
 }

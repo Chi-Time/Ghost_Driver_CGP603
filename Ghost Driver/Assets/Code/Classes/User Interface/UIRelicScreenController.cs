@@ -16,47 +16,32 @@ class UIRelicScreenController : MonoBehaviour, IWakeable
     [SerializeField] private Text _RelicTextLabel = null;
 
     //TODO: Consider creating signal states that define when something new has happened.
-    //TODO: Seperate relic into a seperate signal state so that the player can check and disable themselves.
-    /// <summary>Reference to the First Person Controller.</summary>
-    private FirstPersonController _FPSController = null;
 
     public void Waken ()
     {
-        _FPSController = FindObjectOfType<FirstPersonController> ().GetComponent<FirstPersonController> ();
+        ExplorationSignals.OnRelicCollected += OnRelicCollected;
+
+        //Unity hack because it never calls ondestory on objects that are inactive for the whole scene.
+        // It also doesn't fire off many other basic functions because it's a useless engine.
+        this.gameObject.SetActive (true);
+        this.gameObject.SetActive (false);
     }
 
-    public void DisplayText (string relicName, string relicText)
+    private void OnRelicCollected (RelicInfo relic)
     {
         this.gameObject.SetActive (true);
-
-        _RelicNameLabel.text = relicName;
-        _RelicTextLabel.text = relicText;
+        _RelicNameLabel.text = relic.Name;
+        _RelicTextLabel.text = relic.Description;
     }
 
-    private void OnEnable ()
+    private void OnDestroy ()
     {
-        DisplayRelicMenu (true);
-    }
-
-    private void DisplayRelicMenu (bool shouldShow)
-    {
-        if (shouldShow)
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            _FPSController.enabled = false;
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            _FPSController.enabled = true;
-            this.gameObject.SetActive (false);
-        }
+        ExplorationSignals.OnRelicCollected -= OnRelicCollected;
     }
 
     public void Close ()
     {
-        DisplayRelicMenu (false);   
+        this.gameObject.SetActive (false);
+        ExplorationSignals.QuitRelic ();
     }
 }

@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: OutlineFill
+  m_Name: OutlineFill (Instance)
   m_Shader: {fileID: 4800000, guid: 4e76d4023d7e0411297c670f878973e2, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Floats:
-    - _OutlineWidth: 4
-    - _ZTest: 4
+    - _OutlineWidth: 3
+    - _ZTest: 8
     m_Colors:
-    - _OutlineColor: {r: 0, g: 0.8018868, b: 0.7778396, a: 1}
+    - _OutlineColor: {r: 1, g: 0.44967064, b: 0, a: 1}

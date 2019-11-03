@@ -9,47 +9,37 @@ using UnityEngine;
 
 class ExplorationController : GameController
 {
-    public static ExplorationController Instance { get; private set; }
+    //public static ExplorationController Instance { get; private set; }
 
-    [Tooltip ("The song to play as the background music for the level.")]
-    [SerializeField] private AudioClip _BGM = null;
+    //[Tooltip ("The song to play as the background music for the level.")]
+    //[SerializeField] private AudioClip _BGM = null;
 
-    private void Awake ()
-    {
-        SetInstance ();
-        ChangeMusicTrack ();
-    }
-
-    private void SetInstance ()
-    {
-        // If more than one instance exists, delete any extras.
-        if (Instance != null && Instance != this)
-        {
-            Destroy (this);
-            return;
-        }
-
-        Instance = this;
-    }
-
-    private void ChangeMusicTrack ()
-    {
-        if (MusicController.Instance != null)
-        {
-            var currentTrack = MusicController.Instance.GetCurrentTrackName ();
-
-            if (currentTrack != _BGM.name)
-                MusicController.Instance.ChangeTrack (_BGM);
-        }
-    }
-
-    //private void OnEnable ()
+    //private void Awake ()
     //{
-    //    ExplorationSignals.OnLevelTransition += OnLevelTransition;
+        //SetInstance ();
+        //ChangeMusicTrack ();
     //}
 
-    //private void OnDisable ()
+    //private void SetInstance ()
     //{
-    //    ExplorationSignals.OnLevelTransition -= OnLevelTransition;
+    //    // If more than one instance exists, delete any extras.
+    //    if (Instance != null && Instance != this)
+    //    {
+    //        Destroy (this);
+    //        return;
+    //    }
+
+    //    Instance = this;
+    //}
+
+    //private void ChangeMusicTrack ()
+    //{
+    //    if (MusicController.Instance != null)
+    //    {
+    //        var currentTrack = MusicController.Instance.GetCurrentTrackName ();
+
+    //        if (currentTrack != _BGM.name)
+    //            MusicController.Instance.ChangeTrack (_BGM);
+    //    }
     //}
 }
