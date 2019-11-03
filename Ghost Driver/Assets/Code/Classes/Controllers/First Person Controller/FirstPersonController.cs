@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,7 +60,7 @@ public class FirstPersonController : MonoBehaviour
         ExplorationSignals.OnLevelTransition += OnLevelTransition;
     }
 
-    private void OnLevelTransition ()
+    private void OnLevelTransition (float length)
     {
         this.enabled = false;
     }

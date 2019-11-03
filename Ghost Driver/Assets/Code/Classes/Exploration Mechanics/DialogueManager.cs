@@ -39,6 +39,9 @@ class DialogueManager
     public void BeginDialogue ()
     {
         _DialogueScreenController.Begin (this);
+
+        var dialogueInfo = new DialogueInfo (_CurrentScene);
+        LogBook.AddNewDialogue (dialogueInfo);
     }
 
     private IEnumerator DisplayMessage (Text relicLabel, Text nameLabel, Message message)

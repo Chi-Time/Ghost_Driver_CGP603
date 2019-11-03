@@ -7,10 +7,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [RequireComponent (typeof (Rigidbody), typeof (Collider))]
-class EndLevelTransition : MonoBehaviour
+class Transition : MonoBehaviour
 {
-    [Tooltip ("The scene to transition to.")]
-    [SerializeField] private string _Scene = "";
+    [Tooltip ("How long should the transition last before the level ends.")]
+    [SerializeField] private float _TransitionLength = 2.5f;
 
     private void Awake ()
     {
@@ -26,7 +26,7 @@ class EndLevelTransition : MonoBehaviour
     {
         if (other.CompareTag ("Player"))
         {
-            ExplorationSignals.TransitionLevel ();
+            ExplorationSignals.TransitionLevel (_TransitionLength);
         }
     }
 }

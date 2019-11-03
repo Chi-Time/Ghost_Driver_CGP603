@@ -24,10 +24,10 @@ class Watcher : MonoBehaviour
     //[SerializeField] private bool _ShouldReverse = false;
 
     [Header ("Rotation")]
-    [Tooltip ("How long before the Agent turns to a new direction")]
-    [SerializeField] private float _TurnTimer = 1.0f;
-    [Tooltip ("How long the Agent takes to turn.")]
-    [SerializeField] private float _TurnSpeed = 3.0f;
+    //[Tooltip ("How long before the Agent turns to a new direction")]
+    //[SerializeField] private float _TurnTimer = 1.0f;
+    //[Tooltip ("How long the Agent takes to turn.")]
+    //[SerializeField] private float _TurnSpeed = 3.0f;
     [Tooltip ("Should the agent rotate in a clockwise fashion?")]
     [SerializeField] private bool _ClockwiseTurning = true;
     [Tooltip ("Should the agent turn in 45, 90 or 180 degree angles?")]

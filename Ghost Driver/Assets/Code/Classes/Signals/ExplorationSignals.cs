@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 class ExplorationSignals
 {
-    public static event Action OnLevelTransition;
-    public static void TransitionLevel () { OnLevelTransition?.Invoke (); }
+    public static event Action<float> OnLevelTransition;
+    public static void TransitionLevel (float length) { OnLevelTransition?.Invoke (length); }
 
     public static event Action OnTransitionFinished;
     public static void FinishTransition () { OnTransitionFinished?.Invoke (); }

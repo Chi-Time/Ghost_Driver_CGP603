@@ -20,11 +20,13 @@ public class MouseLook
     private Quaternion _CharacterTargetRot;
     private Quaternion _CameraTargetRot;
     private bool _CursorIsLocked = true;
+    private Camera _Camera = null;
 
     public void Init (Transform character, Transform camera)
     {
         _CharacterTargetRot = character.localRotation;
         _CameraTargetRot = camera.localRotation;
+        _Camera = camera.GetComponent<Camera> ();
     }
 
     public void LookRotation (Transform character, Transform camera)

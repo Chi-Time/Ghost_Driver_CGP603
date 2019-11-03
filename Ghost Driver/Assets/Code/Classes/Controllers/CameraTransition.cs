@@ -7,9 +7,6 @@ using UnityEngine;
 
 class CameraTransition : MonoBehaviour
 {
-    [Tooltip ("How long the object should take to fade in.")]
-    [SerializeField] private float _FadeLength = 2.0f;
-
     private Material _Material = null;
 
     private void Awake ()
@@ -29,9 +26,9 @@ class CameraTransition : MonoBehaviour
         ExplorationSignals.OnLevelTransition -= OnTransitionLevel;
     }
 
-    private void OnTransitionLevel ()
+    private void OnTransitionLevel (float length)
     {
-        StartCoroutine (Fade (_FadeLength, _Material, 1.0f));
+        StartCoroutine (Fade (length, _Material, 1.0f));
     }
 
     IEnumerator Fade (float length, Material material, float targetOpacity)

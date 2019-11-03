@@ -1,0 +1,1 @@
+﻿{"Messages":[{"Name":"Ancient Power Core","Text":"An ancient power core. As you pick it up from the plinth a soft hum slowly fades into silence. You feel a strange connection to the device, somehow you feel as if you’ve seen this before. Along its surface are inscribed runes representing hope and sadness. You’re unsure as to how you know they’re meaning."}]}

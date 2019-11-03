@@ -14,8 +14,6 @@ class Alias : MonoBehaviour
 
     [Tooltip ("The current state of the alias.")]
     [SerializeField] private AliasStates _CurrentState = AliasStates.Hidden;
-    [Tooltip ("Reference to the current dialogue screen in the scene.")]
-    [SerializeField] private UIDialogueScreenController _DialogueScreen = null;
     [Tooltip ("The dialogue manager for this specific alias and it's dialogue scene file.")]
     [SerializeField] private DialogueManager _DialogueManager = new DialogueManager ();
 
@@ -28,7 +26,13 @@ class Alias : MonoBehaviour
     {
         _FadeIn = GetComponent<FadeIn> ();
         _Outline = GetComponent<Outline> ();
-        _DialogueManager.Constructor (_DialogueScreen);
+
+        var dialogueScreen = gameObject.FindFirstObjectOfType<UIDialogueScreenController> ();
+
+        if (dialogueScreen == null)
+            Debug.LogError ("Dialogue screen not found!!, Please ensure there is one in the scene");
+
+        _DialogueManager.Constructor (dialogueScreen);
     }
 
     private void OnTriggerEnter (Collider other)
@@ -73,7 +77,7 @@ class Alias : MonoBehaviour
             _Outline.enabled = false;
         }
 
-        if (Input.GetKeyDown (KeyCode.E) | Input.GetMouseButtonDown (0))
+        if (Input.GetKeyUp (KeyCode.E) | Input.GetMouseButtonUp (0))
         {
             if (_CurrentState == AliasStates.Shown)
                 _DialogueManager.BeginDialogue ();
