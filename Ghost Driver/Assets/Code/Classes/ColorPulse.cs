@@ -10,6 +10,8 @@ class ColorPulse : MonoBehaviour
 {
     [Tooltip ("The speed of the fade.")]
     [SerializeField] private float _FadeSpeed = 2.0f;
+    [Tooltip ("The lerp curve to use for the pulsing animation.")]
+    [SerializeField] private LerpType _LerpType = LerpType.SmootherStep;
 
     private Text _Material = null;
     private bool _HasFadedOut = false;
@@ -35,7 +37,7 @@ class ColorPulse : MonoBehaviour
         {
             timer += Time.deltaTime;
             float t = timer / _FadeSpeed;
-            t = Mathf.Lerp (fromAlpha, toAlpha, LerpCurves.SmootherStep (t));
+            t = Mathf.Lerp (fromAlpha, toAlpha, LerpCurves.Curve (t, _LerpType));
             _Material.color = new Color (startColor.r, startColor.g, startColor.b, t);
 
             yield return new WaitForEndOfFrame ();
