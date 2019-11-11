@@ -29,6 +29,8 @@ class GameController : MonoBehaviour
         Time.timeScale = 1.0f;
         _Blur = gameObject.FindFirstObjectOfType<Blur> ();
         _Blur.enabled = false;
+
+        CursorLock (true);
     }
 
     protected virtual void Update ()
@@ -104,7 +106,7 @@ class GameController : MonoBehaviour
         _Blur.enabled = true;
         Time.timeScale = 0.0f;
 
-        //CursorLock (false);
+        CursorLock (false);
     }
 
     private void ResumeGame ()
@@ -112,7 +114,7 @@ class GameController : MonoBehaviour
         _Blur.enabled = false;
         Time.timeScale = 1.0f;
 
-        //CursorLock (true);
+        CursorLock (true);
     }
 
     private void CursorLock (bool shouldLock)

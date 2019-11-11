@@ -594,7 +594,7 @@ MonoBehaviour:
   _WalkSpeed: 4
   _RunSpeed: 6
   _RunstepLengthen: 0.7
-  _JumpSpeed: 10
+  _JumpSpeed: 7
   _StickToGroundForce: 10
   _GravityMultiplier: 2
   _MouseLook:
