@@ -5,6 +5,8 @@ public class Gate : MonoBehaviour
 {
     public Key Key { get; set; }
 
+    [SerializeField] private AudioSource _AudioManager = null;
+    [SerializeField] private AudioClip _CollectionSFX = null;
     [Tooltip ("The key used to open the gate if it needs one.")]
     [SerializeField] private GameObject _Key = null;
 
@@ -20,6 +22,7 @@ public class Gate : MonoBehaviour
 
             _Renderer.enabled = false;
             _Collider.enabled = false;
+            _Collider.isTrigger = true;
             transform.GetChild (0).gameObject.SetActive (false);
         }
     }
@@ -48,6 +51,7 @@ public class Gate : MonoBehaviour
         if (other.CompareTag ("Player"))
         {
             //other.transform.position = new Vector3 (Mathf.RoundToInt (other.transform.position.x), Mathf.RoundToInt (other.transform.position.y), 0.0f);
+            _AudioManager.PlayOneShot (_CollectionSFX);
             PuzzleSignals.CompletePuzzle ();
         }
     }

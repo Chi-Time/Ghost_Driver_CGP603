@@ -8,6 +8,8 @@ using UnityEngine;
 [RequireComponent (typeof (Outline), typeof (Collider))]
 public class Relic : MonoBehaviour
 {
+    [SerializeField] private AudioSource _AudioManager = null;
+    [SerializeField] private AudioClip _CollectionSFX = null;
     [Tooltip ("The relic's text to display to the player.")]
     [SerializeField] private TextAsset _RelicText = null;
 
@@ -54,6 +56,7 @@ public class Relic : MonoBehaviour
         {
             Destroy (this.gameObject);
             CollectRelic ();
+            _AudioManager.PlayOneShot (_CollectionSFX);
         }
     }
 

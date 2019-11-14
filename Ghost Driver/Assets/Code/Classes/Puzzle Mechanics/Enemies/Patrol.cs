@@ -64,7 +64,7 @@ class Patrol : MonoBehaviour
         {
             CheckState ();
             ChangeIndex ();
-            Rotate ();
+            StartCoroutine (RotateTo ());
         }
 
         MoveToNextPoint (currentWaypoint);

@@ -5,6 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class UIPauseScreenController : MonoBehaviour, IWakeable
 {
+    [Tooltip ("The audio manager for all UI sound effects.")]
+    [SerializeField] private AudioSource _UIAudioManager = null;
+
+    public void PlayClip (AudioClip clip)
+    {
+        _UIAudioManager.PlayOneShot (clip);
+    }
+
     public void Waken ()
     {
         GameSignals.OnLevelPaused += OnLevelPaused;
