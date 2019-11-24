@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 static class PuzzleSignals
 {
@@ -17,4 +18,7 @@ static class PuzzleSignals
 
     public static event Action OnPlayerSighted;
     public static void SightPlayer () { OnPlayerSighted?.Invoke (); }
+
+    public static event Action<Vector3> OnMovementPressed;
+    public static void MovementPressed (Vector3 direction) { OnMovementPressed?.Invoke (direction); }
 }

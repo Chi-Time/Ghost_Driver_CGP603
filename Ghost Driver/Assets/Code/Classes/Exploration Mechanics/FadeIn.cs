@@ -25,10 +25,13 @@ class FadeIn : MonoBehaviour
     {
         foreach (Material material in _Materials)
         {
-            // Change blending mode from Opaque to Fade and allow z depth drawing.
-            material.SetFloat ("_Mode", 2);
-            material.SetInt ("_ZWrite", 0);
-            material.color = new Color (material.color.r, material.color.g, material.color.b, 0.0f);
+            if (material.HasProperty ("_Mode"))
+            {
+                // Change blending mode from Opaque to Fade and allow z depth drawing.
+                material.SetFloat ("_Mode", 2);
+                material.SetInt ("_ZWrite", 0);
+                material.color = new Color (material.color.r, material.color.g, material.color.b, 0.0f);
+            }
         }
     }
 

@@ -471,6 +471,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _MovementSpeed: 5
+  _HighlightTile: {fileID: 0}
 --- !u!1 &4571087314880389110
 GameObject:
   m_ObjectHideFlags: 0

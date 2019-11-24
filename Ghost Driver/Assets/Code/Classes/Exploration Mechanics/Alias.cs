@@ -21,11 +21,14 @@ class Alias : MonoBehaviour
     private FadeIn _FadeIn = null;
     /// <summary>Reference to the outline compnent added to the object.</summary>
     private Outline _Outline = null;
+    private Transform _Target = null;
+    private Transform _Transform = null;
 
     private void Awake ()
     {
         _FadeIn = GetComponent<FadeIn> ();
         _Outline = GetComponent<Outline> ();
+        _Transform = GetComponent<Transform> ();
 
         var dialogueScreen = gameObject.FindFirstObjectOfType<UIDialogueScreenController> ();
 
@@ -35,12 +38,23 @@ class Alias : MonoBehaviour
         _DialogueManager.Constructor ();
     }
 
+    private void Update ()
+    {
+        if (_CurrentState == AliasStates.Shown)
+        {
+            _Transform.LookAt (_Target);
+        }
+    }
+
     private void OnTriggerEnter (Collider other)
     {
         if (other.CompareTag ("Player"))
         {
             _FadeIn.Enable (true);
             _CurrentState = AliasStates.Shown;
+
+            if (_Target == null)
+                _Target = other.transform;
         }
     }
 
