@@ -25002,7 +25002,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &398436442
 Transform:
   m_ObjectHideFlags: 0
@@ -56691,6 +56691,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4597099012845576660, guid: b57c556ed7824ee4b9eae94485c34d1d,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5174208230411600145, guid: b57c556ed7824ee4b9eae94485c34d1d,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -56715,11 +56720,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4597099012845576660, guid: b57c556ed7824ee4b9eae94485c34d1d,
-        type: 3}
-      propertyPath: m_Center.z
-      value: -0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b57c556ed7824ee4b9eae94485c34d1d, type: 3}
@@ -60296,6 +60296,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -180.00002
       objectReference: {fileID: 0}
+    - target: {fileID: 4597099012845576660, guid: b57c556ed7824ee4b9eae94485c34d1d,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5174208230411600145, guid: b57c556ed7824ee4b9eae94485c34d1d,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -60320,11 +60325,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4597099012845576660, guid: b57c556ed7824ee4b9eae94485c34d1d,
-        type: 3}
-      propertyPath: m_Center.z
-      value: -0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b57c556ed7824ee4b9eae94485c34d1d, type: 3}
@@ -73118,82 +73118,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4196702339994345751, guid: 20e9804980a52f94bbd2cd4b63ce4098,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -7.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4196702339994345751, guid: 20e9804980a52f94bbd2cd4b63ce4098,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.29
-      objectReference: {fileID: 0}
-    - target: {fileID: 4196702339994345751, guid: 20e9804980a52f94bbd2cd4b63ce4098,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.25881857
-      objectReference: {fileID: 0}
-    - target: {fileID: 4196702339994345751, guid: 20e9804980a52f94bbd2cd4b63ce4098,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.965926
-      objectReference: {fileID: 0}
-    - target: {fileID: 4196702339994345751, guid: 20e9804980a52f94bbd2cd4b63ce4098,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -30.000002
-      objectReference: {fileID: 0}
-    - target: {fileID: 4196702339994345752, guid: 20e9804980a52f94bbd2cd4b63ce4098,
-        type: 3}
-      propertyPath: m_ClearFlags
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4196702339994345752, guid: 20e9804980a52f94bbd2cd4b63ce4098,
-        type: 3}
-      propertyPath: m_BackGroundColor.r
-      value: 0.037646845
-      objectReference: {fileID: 0}
-    - target: {fileID: 4196702339994345752, guid: 20e9804980a52f94bbd2cd4b63ce4098,
-        type: 3}
-      propertyPath: m_BackGroundColor.g
-      value: 0.08904413
-      objectReference: {fileID: 0}
-    - target: {fileID: 4196702339994345752, guid: 20e9804980a52f94bbd2cd4b63ce4098,
-        type: 3}
-      propertyPath: m_BackGroundColor.b
-      value: 0.16981131
-      objectReference: {fileID: 0}
-    - target: {fileID: 6000906495491110161, guid: 20e9804980a52f94bbd2cd4b63ce4098,
-        type: 3}
-      propertyPath: antialiasingMode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6000906495491110161, guid: 20e9804980a52f94bbd2cd4b63ce4098,
-        type: 3}
-      propertyPath: temporalAntialiasing.sharpness
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6000906495491110161, guid: 20e9804980a52f94bbd2cd4b63ce4098,
-        type: 3}
-      propertyPath: temporalAntialiasing.motionBlending
-      value: 0.99
-      objectReference: {fileID: 0}
-    - target: {fileID: 6000906495491110161, guid: 20e9804980a52f94bbd2cd4b63ce4098,
-        type: 3}
-      propertyPath: temporalAntialiasing.jitterSpread
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4196702340267834388, guid: 20e9804980a52f94bbd2cd4b63ce4098,
-        type: 3}
-      propertyPath: _HighlightTile
-      value: 
-      objectReference: {fileID: 6034431023936379259, guid: 0e94f187011f90b4ab8fb7137d034564,
-        type: 3}
-    - target: {fileID: 4196702340267834388, guid: 20e9804980a52f94bbd2cd4b63ce4098,
-        type: 3}
-      propertyPath: _MovementSpeed
-      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20e9804980a52f94bbd2cd4b63ce4098, type: 3}
@@ -92571,6 +92495,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Finish
       objectReference: {fileID: 0}
+    - target: {fileID: 7584910545889019756, guid: 3d9d8a32937e7d34c9142c73fb3a0e0d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Magnet
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 3d9d8a32937e7d34c9142c73fb3a0e0d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -92635,11 +92564,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.0100000035
-      objectReference: {fileID: 0}
-    - target: {fileID: 7584910545889019756, guid: 3d9d8a32937e7d34c9142c73fb3a0e0d,
-        type: 3}
-      propertyPath: m_TagString
-      value: Magnet
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d9d8a32937e7d34c9142c73fb3a0e0d, type: 3}

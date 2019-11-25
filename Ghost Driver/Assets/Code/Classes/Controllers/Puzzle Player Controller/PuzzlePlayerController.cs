@@ -12,6 +12,8 @@ public class PuzzlePlayerController : MonoBehaviour
     [SerializeField] private float _MovementSpeed = 5.0f;
     [Tooltip ("The tile prefab to use for highlighting.")]
     [SerializeField] private Transform _HighlightTile = null;
+    [Tooltip ("The tiles to provide the highlight functionality.")]
+    [SerializeField] private Transform[] _HighlightTiles = null;
 
     private bool _CanMove = true;
     private bool _Latched = false;
@@ -39,6 +41,8 @@ public class PuzzlePlayerController : MonoBehaviour
         {
             _HighlightTile = Instantiate (_HighlightTile);
         }
+
+        //SpawnHighlightTiles ();
     }
 
     private void SetupRigidbody ()
@@ -47,6 +51,20 @@ public class PuzzlePlayerController : MonoBehaviour
         _Rigidbody.useGravity = false;
         _Rigidbody.freezeRotation = true;
     }
+
+    //private void SpawnHighlightTiles ()
+    //{
+    //    if (_HighlightTiles != null)
+    //    {
+    //        for (int i = 0; i < _HighlightTiles.Length; i++)
+    //        {
+    //            var tile = _HighlightTiles[i];
+
+    //            if (tile != null)
+    //                _HighlightTiles[i] = Instantiate (_HighlightTiles[i]);
+    //        }
+    //    }
+    //}
 
     public void Update ()
     {
@@ -114,6 +132,19 @@ public class PuzzlePlayerController : MonoBehaviour
         {
             _HighlightTile.position = new Vector3 (Mathf.RoundToInt (_Rigidbody.position.x), Mathf.RoundToInt (_Rigidbody.position.y), _HighlightTile.position.z);
         }
+
+        //if (_HighlightTiles != null)
+        //{
+        //    for (int i = 0; i < _HighlightTiles.Length; i++)
+        //    {
+        //        Transform tile = _HighlightTiles[i];
+
+        //        if (tile != null)
+        //        {
+        //            tile.position = new Vector3 (Mathf.RoundToInt (_Rigidbody.position.x) - _Direction.x * i, Mathf.RoundToInt (_Rigidbody.position.y) - _Direction.y * i, tile.position.z);
+        //        }
+        //    }
+        //}
     }
 
     private void CheckPosition ()

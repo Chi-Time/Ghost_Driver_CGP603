@@ -196,13 +196,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4196702339994345754}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: -0.25881857, y: -0, z: -0, w: 0.965926}
+  m_LocalPosition: {x: 0, y: -2.29, z: -7.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 674855801423766383}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -30.000002, y: 0, z: 0}
 --- !u!20 &4196702339994345752
 Camera:
   m_ObjectHideFlags: 0
@@ -212,8 +212,8 @@ Camera:
   m_GameObject: {fileID: 4196702339994345754}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.037646845, g: 0.08904413, b: 0.16981131, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -306,10 +306,10 @@ MonoBehaviour:
   finalBlitToCameraTarget: 0
   antialiasingMode: 2
   temporalAntialiasing:
-    jitterSpread: 0.75
-    sharpness: 0.25
+    jitterSpread: 0.1
+    sharpness: 3
     stationaryBlending: 0.95
-    motionBlending: 0.85
+    motionBlending: 0.99
   subpixelMorphologicalAntialiasing:
     quality: 2
   fastApproximateAntialiasing:
@@ -471,7 +471,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _MovementSpeed: 5
-  _HighlightTile: {fileID: 0}
+  _HighlightTile: {fileID: 6034431023936379259, guid: 0e94f187011f90b4ab8fb7137d034564,
+    type: 3}
+  _HighlightTiles:
+  - {fileID: 1829488643991896198, guid: 5a9c351560bb84146a4c0f33613ebced, type: 3}
+  - {fileID: 30074460535486422, guid: a610fa9b677fa0c4ebec024914716b16, type: 3}
+  - {fileID: 6743989761899432393, guid: 52d1953101ba2af4287104142bb7a8d9, type: 3}
 --- !u!1 &4571087314880389110
 GameObject:
   m_ObjectHideFlags: 0
