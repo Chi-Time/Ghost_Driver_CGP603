@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 
 [RequireComponent (typeof(Renderer), typeof (Collider))]
+[RequireComponent (typeof (CollectableAudio))]
 public class Gate : MonoBehaviour
 {
     public Key Key { get; set; }
 
+    [Tooltip ("The audio manager who controls the audio of this piece.")]
     [SerializeField] private AudioSource _AudioManager = null;
+    [Tooltip ("The sound to play upon collection of this object.")]
     [SerializeField] private AudioClip _CollectionSFX = null;
     [Tooltip ("The key used to open the gate if it needs one.")]
     [SerializeField] private GameObject _Key = null;

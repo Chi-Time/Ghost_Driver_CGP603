@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 //TODO: MAke scene loader work better as currently having people needing to find it is stupid and messy.
 
+[RequireComponent (typeof (SceneController))]
 class SceneLoader : MonoBehaviour, IWakeable
 {
     public static SceneLoader Instance = null;
@@ -27,7 +28,7 @@ class SceneLoader : MonoBehaviour, IWakeable
         this.gameObject.SetActive (false);
     }
 
-    public void Load (string scene)
+    public void Load (int sceneIndex)
     {
         this.gameObject.SetActive (true);
 
@@ -36,7 +37,23 @@ class SceneLoader : MonoBehaviour, IWakeable
             child.gameObject.SetActive (true);
         }
 
-        _Scene = scene;
+        string sceneName = SceneManager.GetSceneAt (sceneIndex).name;
+
+        _Scene = sceneName;
+
+        StartCoroutine (LoadNewScene ());
+    }
+
+    public void Load (string sceneName)
+    {
+        this.gameObject.SetActive (true);
+
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive (true);
+        }
+
+        _Scene = sceneName;
 
         StartCoroutine (LoadNewScene ());
     }

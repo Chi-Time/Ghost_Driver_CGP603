@@ -12,7 +12,6 @@ class SceneController : MonoBehaviour
     private void Awake ()
     {
         SetupInstance ();
-        
     }
 
     private void Start ()
