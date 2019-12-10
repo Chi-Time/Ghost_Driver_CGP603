@@ -679,6 +679,11 @@ MonoBehaviour:
     BobDuration: 0.2
     BobAmount: 0.1
   _StepInterval: 5
-  _FootstepSounds: []
+  _FootstepSounds:
+  - {fileID: 8300000, guid: f7b8b47d559eeb344a6ac2c3a82a5256, type: 3}
+  - {fileID: 8300000, guid: dc1751ded7d67834ca131e13ce2b7a63, type: 3}
+  - {fileID: 8300000, guid: 1464fb3fe2d4f1f48bed39ab7681ff75, type: 3}
+  - {fileID: 8300000, guid: 2822fc2009f48694d84c437cad5564ea, type: 3}
+  - {fileID: 8300000, guid: accca8ec96024254595bb8281d695322, type: 3}
   _JumpSound: {fileID: 0}
   _LandSound: {fileID: 0}

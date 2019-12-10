@@ -360,6 +360,7 @@ GameObject:
   - component: {fileID: 4196702340267834392}
   - component: {fileID: 4196702340267834387}
   - component: {fileID: 4196702340267834388}
+  - component: {fileID: 5010431649463507327}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -478,6 +479,22 @@ MonoBehaviour:
   - {fileID: 1829488643991896198, guid: 5a9c351560bb84146a4c0f33613ebced, type: 3}
   - {fileID: 30074460535486422, guid: a610fa9b677fa0c4ebec024914716b16, type: 3}
   - {fileID: 6743989761899432393, guid: 52d1953101ba2af4287104142bb7a8d9, type: 3}
+--- !u!114 &5010431649463507327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4196702340267834393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 832e110438a9e584fb3c5b8d29d7ff5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Volume: 0.35
+  _MinPitch: 0.5
+  _MaxPitch: 1.05
+  _AudioClip: {fileID: 8300000, guid: c4f3f613354475240bb068db880974cf, type: 3}
 --- !u!1 &4571087314880389110
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,12 +700,12 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.015
       objectReference: {fileID: 0}
-    - target: {fileID: -6168118333321015139, guid: 9cbacd0266cda2e4a8270f10ddfb3907,
+    - target: {fileID: -5114759536727006269, guid: 9cbacd0266cda2e4a8270f10ddfb3907,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 05e3931c32f594c42a1159e03eb2f77a, type: 2}
-    - target: {fileID: -5114759536727006269, guid: 9cbacd0266cda2e4a8270f10ddfb3907,
+    - target: {fileID: -6168118333321015139, guid: 9cbacd0266cda2e4a8270f10ddfb3907,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

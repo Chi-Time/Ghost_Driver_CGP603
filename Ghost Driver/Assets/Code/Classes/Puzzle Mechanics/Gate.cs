@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [RequireComponent (typeof(Renderer), typeof (Collider))]
-[RequireComponent (typeof (CollectableAudio))]
+[RequireComponent (typeof (AudioPlayer))]
 public class Gate : MonoBehaviour
 {
     public Key Key { get; set; }

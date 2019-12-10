@@ -6,6 +6,7 @@ using UnityEngine;
 // Every time the player moves there are a dynamic number of tiles that move
 // Progressively behind them with varied transparency.
 [RequireComponent (typeof (Collider), typeof (Rigidbody))]
+[RequireComponent (typeof (AudioPlayer))]
 public class PuzzlePlayerController : MonoBehaviour
 {
     [Tooltip ("The speed at which the player moves.")]
@@ -22,6 +23,7 @@ public class PuzzlePlayerController : MonoBehaviour
     private Quaternion _SpawnRotation = Quaternion.identity;
     private Rigidbody _Rigidbody = null;
     private Transform _CurrentMagnet = null;
+    private AudioPlayer _AudioPlayer = null;
 
     protected void Awake ()
     {
@@ -32,6 +34,7 @@ public class PuzzlePlayerController : MonoBehaviour
     private void AssignReferences ()
     {
         _Rigidbody = GetComponent<Rigidbody> ();
+        _AudioPlayer = GetComponent<AudioPlayer> ();
         GetComponent<Collider> ().isTrigger = true;
 
         _SpawnPosition = _Rigidbody.position;
@@ -87,29 +90,29 @@ public class PuzzlePlayerController : MonoBehaviour
         {
             if (Input.GetKeyDown (KeyCode.W))
             {
-                _Latched = false;
-                _Direction = Vector3.up;
-                _Rigidbody.rotation = Quaternion.Euler (Vector3.zero);
+                MoveTo (Vector3.up, 0.0f);
             }
             else if (Input.GetKeyDown (KeyCode.S))
             {
-                _Latched = false;
-                _Direction = Vector3.down;
-                _Rigidbody.rotation = Quaternion.Euler (new Vector3 (0, 0, 180f));
+                MoveTo (Vector3.down, 180f);
             }
             else if (Input.GetKeyDown (KeyCode.D))
             {
-                _Latched = false;
-                _Direction = Vector3.right;
-                _Rigidbody.rotation = Quaternion.Euler (new Vector3 (0, 0, 270f));
+                MoveTo (Vector3.right, 270f);
             }
             else if (Input.GetKeyDown (KeyCode.A))
             {
-                _Latched = false;
-                _Direction = Vector3.left;
-                _Rigidbody.rotation = Quaternion.Euler (new Vector3 (0, 0, 90f));
+                MoveTo (Vector3.left, 90f);
             }
         }
+    }
+
+    private void MoveTo (Vector3 direction, float angle)
+    {
+        _Latched = false;
+        _Direction = direction;
+        _Rigidbody.rotation = Quaternion.Euler (new Vector3 (0.0f, 0.0f, angle));
+        _AudioPlayer.Play ();
     }
 
     private void FixedUpdate ()
