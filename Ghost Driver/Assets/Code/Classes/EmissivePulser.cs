@@ -32,13 +32,11 @@ class EmissivePulser : MonoBehaviour
         StartCoroutine (PulseTo (_PulseIntensity));
     }
 
-    //TODO: Fix weird intensity pop.
     private IEnumerator PulseTo (float endValue)
     {
         float timer = 0.0f;
         Color startColor = _Material.GetColor ("_EmissionColor");
-        float startValue = 0.0f;
-        Color.RGBToHSV (startColor, out startColor.r, out startColor.g, out startValue);
+        Color.RGBToHSV (startColor, out startColor.r, out startColor.g, out startColor.b);
 
         while (timer <= _PulseSpeed)
         {
@@ -53,6 +51,6 @@ class EmissivePulser : MonoBehaviour
 
         _Material.SetColor ("_EmissionColor", Color.HSVToRGB (_BaseColor.r, _BaseColor.g, endValue));
 
-        StartCoroutine (PulseTo (startValue));
+        StartCoroutine (PulseTo (startColor.b));
     }
 }
