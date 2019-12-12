@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
+[RequireComponent (typeof (AudioPlayer))]
 class Sentinel : MonoBehaviour
 {
     [Header ("Sight")]
@@ -24,11 +25,13 @@ class Sentinel : MonoBehaviour
     private LineDrawer _Line = null;
     private Transform _Transform = null;
     private Quaternion _SpawnRotation = Quaternion.identity;
+    private AudioPlayer _AudioPlayer = null;
 
     private void Awake ()
     {
-        _Line = new LineDrawer ();
+        //_Line = new LineDrawer ();
         _Transform = GetComponent<Transform> ();
+        _AudioPlayer = GetComponent<AudioPlayer> ();
 
         _SpawnRotation = _Transform.rotation;
     }
@@ -41,20 +44,21 @@ class Sentinel : MonoBehaviour
     private void Update ()
     {
         // Draw an in-game sight line so that the player can tell the enemie's sight length.
-        _Line.DrawLineInGameView(_Transform.position, _Transform.position + _Transform.up * _SightDistance, Color.red);
+        //_Line.DrawLineInGameView(_Transform.position, _Transform.position + _Transform.forward * _SightDistance, Color.red);
 
         See();
     }
 
     private void See ()
     {
-        if (Physics.Linecast(_Transform.position, _Transform.position + _Transform.up * _SightDistance, out RaycastHit hit))
+        if (Physics.Linecast(_Transform.position, _Transform.position + _Transform.forward * _SightDistance, out RaycastHit hit))
         {
             if (hit.collider != null)
             {
                 if (hit.collider.CompareTag("Player"))
                 {
                     PuzzleSignals.FailPuzzle ();
+                    _AudioPlayer.Play ();
                 }
             }
         }
@@ -66,19 +70,19 @@ class Sentinel : MonoBehaviour
 
         float timer = 0.0f;
         Vector3 nextRotation = GetNextRotation ();
-        Vector3 currentRotation = _Transform.rotation.eulerAngles;
+        Vector3 currentRotation = _Transform.localRotation.eulerAngles;
 
         while (timer <= _TurnSpeed)
         {
             timer += Time.fixedDeltaTime;
 
             var rotation = Vector3.Lerp (currentRotation, nextRotation, timer / _TurnSpeed);
-            _Transform.rotation = Quaternion.Euler (rotation);
+            _Transform.localRotation = Quaternion.Euler (rotation);
 
             yield return new WaitForFixedUpdate ();
         }
 
-        _Transform.rotation = Quaternion.Euler (nextRotation);
+        _Transform.localRotation = Quaternion.Euler (nextRotation);
 
         StartCoroutine (RotateTo ());
     }
@@ -86,8 +90,8 @@ class Sentinel : MonoBehaviour
     private Vector3 GetNextRotation ()
     {
         float offset = GetOffset ();
-        float currentAngle = _Transform.rotation.eulerAngles.z;
-        var rotation = new Vector3 (0.0f, 0.0f, currentAngle - offset);
+        float currentAngle = _Transform.localRotation.eulerAngles.y;
+        var rotation = new Vector3 (0.0f, currentAngle - offset, 0.0f);
 
         return rotation;
     }

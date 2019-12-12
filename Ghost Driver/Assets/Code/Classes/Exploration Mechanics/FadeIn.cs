@@ -21,6 +21,22 @@ class FadeIn : MonoBehaviour
         SetDefaultState ();
     }
 
+    private void OnEnable ()
+    {
+        ExplorationSignals.OnLevelTransition += Transition;
+    }
+
+    private void Transition (float length)
+    {
+        _FadeLength = length;
+        Enable (true);
+    }
+
+    private void OnDestroy ()
+    {
+        ExplorationSignals.OnLevelTransition -= Transition;
+    }
+
     private void SetDefaultState ()
     {
         foreach (Material material in _Materials)

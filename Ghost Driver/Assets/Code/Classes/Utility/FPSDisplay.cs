@@ -7,10 +7,51 @@ class FPSDisplay : MonoBehaviour
     [Tooltip ("The color of the text on-screen.")]
     [SerializeField] private Color _TextColor = Color.white;
     [Tooltip ("The position of the label on the screen using the Top Left as origin.")]
-    [SerializeField] private Vector2 _LablePosition = Vector2.zero;
+    [SerializeField] private Vector2 _LabelPosition = Vector2.zero;
+
+    private Rect _LabelRect = Rect.zero;
+    private Rect _ShadowRect = Rect.zero;
+    private GUIStyle _BaseStyle = null;
+    private GUIStyle _ShadowStyle = null;
 
     /// <summary>The currently elapsed time since the game began.</summary>
     private float _DeltaTime = 0.0f;
+
+    private void Awake ()
+    {
+        SetLabelRect ();
+        _BaseStyle = GetBaseStyle ();
+        _ShadowStyle = GetShadowStyle ();
+    }
+
+    private GUIStyle GetBaseStyle ()
+    {
+        int fontSize = (int)_LabelRect.height * 2 / _FontSize;
+
+        var baseStyle = new GUIStyle
+        {
+            alignment = TextAnchor.UpperLeft,
+            fontSize = fontSize
+        };
+
+        baseStyle.normal.textColor = _TextColor;
+
+        return baseStyle;
+    }
+
+    private GUIStyle GetShadowStyle ()
+    {
+        int fontSize = (int)_LabelRect.height * 2 / _FontSize;
+        var shadowStyle = new GUIStyle
+        {
+            alignment = TextAnchor.UpperLeft,
+            fontSize = fontSize
+        };
+
+        shadowStyle.normal.textColor = new Color (0f, 0f, 0f, .5f);
+
+        return shadowStyle;
+    }
 
     private void Update ()
     {
@@ -19,35 +60,31 @@ class FPSDisplay : MonoBehaviour
 
     private void CalculateTime ()
     {
-        _DeltaTime += ( Time.unscaledDeltaTime - _DeltaTime ) * 0.1f;
+        const float interval = 0.1f;
+        _DeltaTime += ( Time.unscaledDeltaTime - _DeltaTime ) * interval;
     }
 
     private void OnGUI ()
     {
-        var baseStyle = new GUIStyle ();
-        var shadowStyle = new GUIStyle ();
-        var labelRect = GetLabelRect (baseStyle, shadowStyle);
-
-        string text = GetFPSText ();
-
-        GUI.Label (labelRect, text, baseStyle);
-        GUI.Label (new Rect (labelRect.x + 1, labelRect.y + 1, labelRect.width, labelRect.height), text, shadowStyle);
+        SetLabelRect ();
+        DisplayLabel ();
     }
 
-    private Rect GetLabelRect (GUIStyle baseStyle, GUIStyle shadowStyle)
+    private void SetLabelRect ()
     {
         int width = Screen.width;
         int height = Screen.height;
 
-        var labelRect = new Rect (_LablePosition.x, _LablePosition.y, width, height * 2 / 100);
-        baseStyle.alignment = TextAnchor.UpperLeft;
-        baseStyle.fontSize = height * 2 / _FontSize;
-        baseStyle.normal.textColor = _TextColor;
-        shadowStyle.alignment = TextAnchor.UpperLeft;
-        shadowStyle.fontSize = height * 2 / _FontSize;
-        shadowStyle.normal.textColor = new Color (0f, 0f, 0f, .5f);
+        _LabelRect = new Rect (_LabelPosition.x, _LabelPosition.y, width, height * 2 / 100);
+        _ShadowRect = new Rect (_LabelRect.x + 1, _LabelRect.y + 1, _LabelRect.width, _LabelRect.height);
+    }
 
-        return labelRect;
+    private void DisplayLabel ()
+    {
+        string text = GetFPSText ();
+
+        GUI.Label (_LabelRect, text, _BaseStyle);
+        GUI.Label (_ShadowRect, text, _ShadowStyle);
     }
 
     private string GetFPSText ()

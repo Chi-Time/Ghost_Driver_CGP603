@@ -61,6 +61,7 @@ class AudioPlayer : MonoBehaviour
     /// <summary>Plays the audio source.</summary>
     public void Play ()
     {
+
         _AudioSource.volume = _Volume;
         _AudioSource.pitch = Random.Range (_MinPitch, _MaxPitch);
 

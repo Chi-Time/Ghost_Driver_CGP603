@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
+[RequireComponent (typeof (AudioPlayer))]
 class Patrol : MonoBehaviour
 {
     enum PatrolState { Patrolling, Reversing, Turning }
@@ -31,6 +32,7 @@ class Patrol : MonoBehaviour
     private Vector3 _SpawnPosition = Vector3.zero;
     private Quaternion _SpawnRotation = Quaternion.identity;
     private PatrolState _CurrentState = PatrolState.Patrolling;
+    private AudioPlayer _AudioPlayer = null;
 
     private void Awake ()
     {
@@ -38,6 +40,7 @@ class Patrol : MonoBehaviour
 
         _SpawnPosition = _Transform.position;
         _SpawnRotation = _Transform.rotation;
+        _AudioPlayer = GetComponent<AudioPlayer> ();
     }
 
     private void Start ()
@@ -54,6 +57,14 @@ class Patrol : MonoBehaviour
     {
         if (_CurrentState == PatrolState.Patrolling || _CurrentState == PatrolState.Reversing)
             Move ();
+    }
+
+    private void OnTriggerEnter (Collider other)
+    {
+        if (other.CompareTag ("Player"))
+        {
+            _AudioPlayer.Play ();
+        }
     }
 
     private void Move ()

@@ -3,7 +3,12 @@ guid: 9ea5e3ff0c82b70458afe965c432a200
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Corner_Wall_Mat
+    second: {fileID: 2100000, guid: 4dba61e1ad5229a48961c5c05634cdd1, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

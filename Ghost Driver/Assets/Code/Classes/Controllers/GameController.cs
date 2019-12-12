@@ -10,7 +10,7 @@ using UnityStandardAssets.ImageEffects;
 //TODO: Find a better way to handle the level transition, the current fade thing feels bad.
 //TODO: Make it so that log menu can't re-activate pause menu whilst in the log screen.
 
-[RequireComponent (typeof (SceneController))]
+[RequireComponent (typeof (SceneController), typeof (AudioPlayer))]
 class GameController : MonoBehaviour
 {
     [Tooltip ("The song to play as the background music for the level.")]
@@ -23,6 +23,10 @@ class GameController : MonoBehaviour
     protected Blur _Blur = null;
     protected bool _IsPaused = false;
     protected GameStates _CurrentState = GameStates.Playing;
+
+    protected virtual void Awake ()
+    {
+    } 
 
     protected virtual void Start ()
     {
@@ -159,6 +163,8 @@ class GameController : MonoBehaviour
     {
         _CurrentState = GameStates.Failed;
         FreezeGame ();
+
+        MusicController.Instance.GetComponent<AudioSource> ().pitch = .5f;
     }
 
     protected virtual void OnPuzzleReset ()
@@ -166,6 +172,7 @@ class GameController : MonoBehaviour
         _CurrentState = GameStates.Playing;
         _IsPaused = false;
         ResumeGame ();
+        MusicController.Instance.GetComponent<AudioSource> ().pitch = 1f;
     }
 
     private void OnPuzzleComplete ()

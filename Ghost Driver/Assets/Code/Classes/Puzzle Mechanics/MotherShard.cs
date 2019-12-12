@@ -76,6 +76,7 @@ public class MotherShard : MonoBehaviour
 
     private void OnDestroy ()
     {
+        print ("I was called");
         PuzzleSignals.OnPuzzleReset -= OnPuzzleReset;
     }
 }

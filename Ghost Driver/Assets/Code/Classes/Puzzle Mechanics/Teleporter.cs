@@ -7,7 +7,7 @@ using UnityEngine;
 
 //TODO: Implement better teleporter system which makes use of a parent gameobject that contains them both under it so that it can tell who the partners are and organise it.
 
-[RequireComponent (typeof (Collider))]
+[RequireComponent (typeof (Collider), typeof (AudioPlayer))]
 public class Teleporter : MonoBehaviour
 {
     public char ID { get { return _ID; } }
@@ -21,10 +21,12 @@ public class Teleporter : MonoBehaviour
     private float _DelayTimer = 0.05f;
     private Teleporter _Partner = null;
     private Transform _Transform = null;
+    private AudioPlayer _AudioPlayer = null;
 
     private void Awake ()
     {
         Setup ();
+        _AudioPlayer = GetComponent<AudioPlayer> ();
     }
 
     private void Start ()
@@ -66,6 +68,7 @@ public class Teleporter : MonoBehaviour
         _Partner.CanTeleport = false;
         other.transform.position = new Vector3 (_Partner.Transform.position.x, _Partner.Transform.position.y, zPos);
         Invoke ("ActivatePartner", _DelayTimer);
+        _AudioPlayer.Play ();
     }
 
     private void ActivatePartner ()

@@ -3,7 +3,12 @@ guid: a2406813fb68e034d87bbd6f521ec3cb
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Sentinel_Mat
+    second: {fileID: 2100000, guid: 8c4814afec83d344b8060960d34a1da8, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

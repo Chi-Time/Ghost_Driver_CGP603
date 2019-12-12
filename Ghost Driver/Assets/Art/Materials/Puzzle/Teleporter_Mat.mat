@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 99d30ddb9b7d33548bd591256b03e804, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6c03cc89bdf2204418ba1a5f16942117, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -36,19 +36,19 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: d972f33c0f6c8e140ba399d29f398545, type: 3}
+        m_Texture: {fileID: 2800000, guid: f4c53549f1db9f0468826919bb66a29b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 9ba5860eaef0a3543894edb06d08c7c7, type: 3}
+        m_Texture: {fileID: 2800000, guid: 70c3a857d1891b24783a5869f1867467, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: d46a2bd05a6255c4a8ff76f3d02a4115, type: 3}
+        m_Texture: {fileID: 2800000, guid: 20dafe1df75f2cb4dbc0acd8839a0567, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: cb8722a649c1f4b49bd561d3fe6992ae, type: 3}
+        m_Texture: {fileID: 2800000, guid: 47cc816a20d37bf46a77faf6b255b384, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
@@ -56,11 +56,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _BumpScale: 1
+    - _BumpScale: 4.25
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _GlossMapScale: 1
+    - _GlossMapScale: 0.252
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Metallic: 0
@@ -74,4 +74,4 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 0.1372549, g: 1, b: 0.6059042, a: 1}

@@ -6,15 +6,17 @@ public class Gate : MonoBehaviour
 {
     public Key Key { get; set; }
 
-    [Tooltip ("The audio manager who controls the audio of this piece.")]
-    [SerializeField] private AudioSource _AudioManager = null;
-    [Tooltip ("The sound to play upon collection of this object.")]
-    [SerializeField] private AudioClip _CollectionSFX = null;
     [Tooltip ("The key used to open the gate if it needs one.")]
     [SerializeField] private GameObject _Key = null;
 
     private Renderer _Renderer = null;
     private Collider _Collider = null;
+    private AudioPlayer _AudioPlayer = null;
+
+    private void Awake ()
+    {
+        _AudioPlayer = GetComponent<AudioPlayer> ();
+    }
 
     private void Start ()
     {
@@ -54,7 +56,7 @@ public class Gate : MonoBehaviour
         if (other.CompareTag ("Player"))
         {
             //other.transform.position = new Vector3 (Mathf.RoundToInt (other.transform.position.x), Mathf.RoundToInt (other.transform.position.y), 0.0f);
-            _AudioManager.PlayOneShot (_CollectionSFX);
+            _AudioPlayer.Play ();
             PuzzleSignals.CompletePuzzle ();
         }
     }

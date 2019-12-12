@@ -3,7 +3,12 @@ guid: 154c1f14d3a7795498a2136d7fd1f603
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mother_Shard_Mat
+    second: {fileID: 2100000, guid: 8d24ef3e6dc8ef84b8378641c08111c3, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

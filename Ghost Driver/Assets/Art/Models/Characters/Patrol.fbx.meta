@@ -3,7 +3,12 @@ guid: df1d80e6c3c241042be48545becb5e51
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Patrol_Mat
+    second: {fileID: 2100000, guid: 75383c3ee1ced2d42b4c4535e6c92e1a, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

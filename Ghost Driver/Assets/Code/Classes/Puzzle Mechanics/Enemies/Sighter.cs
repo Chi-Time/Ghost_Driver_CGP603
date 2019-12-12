@@ -4,6 +4,7 @@ using UnityEngine;
 //TODO: Consider ripping out the movement logic along the route to it's own sub-component as well as the sight logic. 
 //TODO: Find way to seperate rotation logic to it's own sub-component too if possible.
 
+[RequireComponent (typeof (AudioPlayer))]
 class Sighter : MonoBehaviour
 {
     enum SighterState { Patrolling, Reversing, Turning }
@@ -11,6 +12,9 @@ class Sighter : MonoBehaviour
     [Header ("Sight")]
     [Tooltip ("How many tiles ahead the agent see.")]
     [SerializeField] private float _SightDistance = 3.0f;
+    [SerializeField] private float _Offset = 1.0f;
+    [SerializeField] private SpriteRenderer _SightSprite = null;
+    [SerializeField] private Transform _SightAnchor = null;
 
     [Header ("Movement")]
     [Tooltip ("The speed at which the agent moves to each waypoint.")]
@@ -30,24 +34,27 @@ class Sighter : MonoBehaviour
     [SerializeField] private float _TurnSpeed = 1.0f;
 
     private int _CurrentIndex = 0;
-    private LineDrawer _Line = null;
+    //private LineDrawer _Line = null;
     private Transform _Transform = null;
     private Transform[] _WayPoints = null;
     private Vector3 _SpawnPosition = Vector3.zero;
     private Quaternion _SpawnRotation = Quaternion.identity;
     private SighterState _CurrentState = SighterState.Patrolling;
+    private AudioPlayer _AudioPlayer = null;
 
     private void Awake ()
     {
-        _Line = new LineDrawer ();
+        //_Line = new LineDrawer ();
         _Transform = GetComponent<Transform> ();
 
         _SpawnPosition = _Transform.position;
         _SpawnRotation = _Transform.rotation;
+        _AudioPlayer = GetComponent<AudioPlayer> ();
     }
 
     private void Start ()
     {
+
         GetWaypointsFromHolder ();
     }
 
@@ -63,9 +70,11 @@ class Sighter : MonoBehaviour
 
     private void Update ()
     {
-        _Line.DrawLineInGameView (_Transform.position, _Transform.position + _Transform.up * _SightDistance, Color.red);
+        //var sightLine = new Vector3 (_Transform.position.x, _Transform.position.y, _Transform.position.z - _Offset);
 
-        if (Physics.Linecast (_Transform.position, _Transform.position + _Transform.up * _SightDistance, out RaycastHit hit))
+        //_Line.DrawLineInGameView (sightLine, sightLine + _Transform.up * _SightDistance, Color.red);
+
+        if (Physics.Linecast (transform.position, transform.position + _Transform.up * _SightDistance, out RaycastHit hit))
         {
             if (hit.collider != null)
             {
@@ -74,6 +83,15 @@ class Sighter : MonoBehaviour
                     PuzzleSignals.FailPuzzle ();
                 }
             }
+        }
+    }
+
+    private void OnTriggerEnter (Collider other)
+    {
+        if (other.CompareTag ("Player"))
+        {
+            PuzzleSignals.FailPuzzle ();
+            _AudioPlayer.Play ();
         }
     }
 
